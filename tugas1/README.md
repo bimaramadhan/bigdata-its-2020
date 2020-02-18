@@ -76,3 +76,5 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/csv-writer-file.PNG?raw=true)
 - Berikut hasil deploy CSV berhasil dilakukan. 
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/hasil-csv-writer.PNG?raw=true)
+# Workflow KNIME
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/workflow-knime.PNG?raw=true)
