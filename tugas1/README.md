@@ -66,7 +66,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/tampilan-csv-compare.PNG?raw=true)
 - Berikut hasilnya saat dimasukkan dataset asli dan data hasil append ketika dibandingkan hasilnya seperti terlihat pada gambar di bawah.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/csv-comparison.PNG?raw=true)
-- Apabila nampak perbedaan makan akan terdapat bagian tabel berwarna merah yang mana berarti bagian tersebut adalah berbeda.
+- Apabila nampak perbedaan maka akan terdapat bagian tabel berwarna merah yang mana berarti bagian tersebut adalah berbeda.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/contoh-compare-salah.PNG?raw=true)
 # Deployment
 ### Menyimpan ke Database
