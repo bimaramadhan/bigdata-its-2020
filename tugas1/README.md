@@ -6,8 +6,8 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
  - Melihat karakter dengan dialog terbanyak di Game of Thrones.
  - Melihat tahun tayang tiap season Game of Thrones.
 # Data Understanding
- - Dataset ini adalah file berformat .csv yang berisi seluruh skrip Game of Thrones untuk semua season. Dataset ini memiliki tipe data berbeda yang dapat digunakan untuk berbagai keperluan.    
- -   dataset ini berisi 23911 baris dan mempunyai 6 kolom dengan kolom-kolomnya adalah sebagai berikut :
+ - Dataset ini adalah file berformat CSV yang berisi seluruh skrip Game of Thrones untuk semua season. Dataset ini memiliki tipe data berbeda yang dapat digunakan untuk berbagai keperluan.    
+ -  Dataset ini berisi 23911 baris dan mempunyai 6 kolom dengan kolom-kolomnya adalah sebagai berikut :
     - Release Date : Tanggal tayang dari episode ini.
     - Season : Nomor season.
     - Episode : Nomor episode.
@@ -17,7 +17,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 # Data Preparation
 - Dataset dipisah menjadi dua bagian menggunakan script seperti yang terlampir di bawah
 [link script](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/split_data.ipynb)
-- Kemudian setelah dipisah terdapat dua data csv. Salah satu data csv tersebut akan dimasukkan pada database phpmyadmin.
+- Kemudian setelah dipisah terdapat dua data CSV. Salah satu data CSV tersebut akan dimasukkan pada database phpmyadmin.
 - Sebagai contoh disini dimasukkan data GOT_new1.csv. Convert menjadi sql dengan bantuan converter online [https://www.convertcsv.com/csv-to-sql.htm](https://www.convertcsv.com/csv-to-sql.htm) 
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/convert-csv-to-sql.PNG?raw=true)
 - jika sudah berhasil import data GOT_news1.sql pada phpmyadmin.
@@ -26,7 +26,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/tabel-sql.PNG?raw=true)
 
 # Modeling
-## Proses Membaca dari MySQL
+### Proses Membaca dari MySQL
 - Untuk membaca data dari mysql, pertama koneksikan dulu dengan menggunakan mysql connector nodes. 
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/mysql-connector.PNG?raw=true)
 - Kemudian melakukan konfigurasi dengan MySQL yang sudah disiapkan sebelumnya di atas dan lakukan setting untuk hostname, database name, username dan password dari database.
@@ -38,20 +38,36 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 - db reader untuk melihat hasilnya ke dalam tabel Knime.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/db-reader.PNG?raw=true)
 - hasil data mysql yang sudah terhubung dan terbaca di tabel Knime.
-
-## Proses Membaca dari CSV
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/db-reader-sql.PNG?raw=true)
+### Proses Membaca dari CSV
 - Untuk membaca data dari CSV dapat langsung menggunakan CSV Reader.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/csv-reader.PNG?raw=true)
-- Kemudian melakukan konfigurasi seperti gambar di bawah dan masukan lokasi input data csvnya
+- Kemudian melakukan konfigurasi seperti gambar di bawah dan masukan lokasi input data CSVnya
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/konfigurasi-csv-reader.PNG?raw=true)
-- hasil data csv 
+- Hasil data CSV
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/csv-reader-knime.PNG?raw=true) 
 
-## Proses Modeling
-- Untuk melakukan proses modeling menggunakan column appender untuk meng-append data dari csv dan database.
-
-- Kemudian melakukan execute pada column appender maka hasil tabel yang sudah diappend akan nampak seperti gambar di bawah.
-
+### Proses Modeling
+ - Untuk melakukan proses modeling menggunakan column appender untuk meng-append data dari csv dan database.
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/column-appender.PNG?raw=true)
+ - Kemudian melakukan execute pada column appender maka hasil tabel yang sudah diappend akan nampak seperti gambar di bawah.
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/hasil-append.PNG?raw=true)
 # Evaluation
 Jelaskan apakah hasil join atau append berhasil
 # Deployment
-Simpan hasil join atau append ke dalam file dan database
+### Menyimpan ke Database
+ - Menggunakan DB Writer untuk men-deploy ke dalam bentuk Database.
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/db-writer.PNG?raw=true)
+ - Kemudian melakukan konfigurasi seperti gambar di bawah ini.
+ ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/konfigurasi-db-writer.PNG?raw=true)
+ - Berikut hasil deploy Database berhasil dilakukan.
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/hasil-db-writer.PNG?raw=true)
+### Menyimpan ke CSV
+ - Menggunakan CSV Writer untuk men-deploy ke dalam bentuk file CSV.
+ ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/csv-writer.PNG?raw=true)
+ - Kemudian melakukan konfigurasi seperti gambar di bawah ini.
+ ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/konfigurasi-csv-writer.PNG?raw=true)
+ - Terlihat sudah muncul file CSV baru yaitu GOT_append_result.
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/csv-writer-file.PNG?raw=true)
+- Berikut hasil deploy CSV berhasil dilakukan. 
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/hasil-csv-writer.PNG?raw=true)
