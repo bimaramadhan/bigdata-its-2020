@@ -53,7 +53,12 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
  - Kemudian melakukan execute pada column appender maka hasil tabel yang sudah diappend akan nampak seperti gambar di bawah.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/hasil-append.PNG?raw=true)
 # Evaluation
-Jelaskan apakah hasil join atau append berhasil
+- Untuk evaluasi menggunakan online compare tools yaitu [https://extendsclass.com/csv-diff.html](https://extendsclass.com/csv-diff.html)
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/tampilan-csv-compare.PNG?raw=true)
+- Berikut hasilnya saat dimasukkan dataset asli dan data hasil append ketika dibandingkan hasilnya seperti terlihat pada gambar di bawah.
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/csv-comparison.PNG?raw=true)
+- Apabila nampak perbedaan makan akan terdapat bagian tabel berwarna merah yang mana berarti bagian tersebut adalah berbeda.
+![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/contoh-compare-salah.PNG?raw=true)
 # Deployment
 ### Menyimpan ke Database
  - Menggunakan DB Writer untuk men-deploy ke dalam bentuk Database.
