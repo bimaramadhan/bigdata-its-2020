@@ -1,8 +1,8 @@
 # Business Understanding
 Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
- - Melihat data yang sering digunakan dalam dialog.
+ - Mencari kata yang sering digunakan dalam dialog.
  - Melihat jumlah episode pada tiap season.
- - Melihat kata yang sering digunakan atau muncul dalam tiap episode.
+ - Mencari kata yang sering digunakan atau muncul dalam tiap episode.
  - Melihat karakter dengan dialog terbanyak di Game of Thrones.
  - Melihat tahun tayang tiap season Game of Thrones.
 # Data Understanding
@@ -22,22 +22,22 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/convert-csv-to-sql.PNG?raw=true)
 - jika sudah berhasil import data GOT_news1.sql pada phpmyadmin.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/import-sql.PNG?raw=true)
-- hasil data mysql.
-![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/tabel-sql.PNG?raw=true)
+- Hasil data mysql.
+![Alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/tabel-sql.PNG?raw=true)
 
 # Modeling
 ### Proses Membaca dari MySQL
-- Untuk membaca data dari mysql, pertama koneksikan dulu dengan menggunakan mysql connector nodes. 
+- Untuk membaca data dari MySQL, pertama koneksikan dulu dengan menggunakan MySQL connector nodes. 
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/mysql-connector.PNG?raw=true)
 - Kemudian melakukan konfigurasi dengan MySQL yang sudah disiapkan sebelumnya di atas dan lakukan setting untuk hostname, database name, username dan password dari database.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/konfigurasi-sql-connector.PNG?raw=true)
-- Menggunakan db table selector untuk memilih database dan tabel yang ingin dikoneksikan.
+- Menggunakan DB Table Selector untuk memilih database dan tabel yang ingin dikoneksikan.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/db-table-selector.PNG?raw=true)
-- Konfigurasi db table selector dan pilih database dan tabel yang ingin dipilih untuk dikoneksikan.
+- Konfigurasi DB Table Selector dan pilih database dan tabel yang ingin dipilih untuk dikoneksikan.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/konfigurasi-sql-selector.PNG?raw=true)
-- db reader untuk melihat hasilnya ke dalam tabel Knime.
+- DB Reader untuk melihat hasilnya ke dalam tabel Knime.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/db-reader.PNG?raw=true)
-- hasil data mysql yang sudah terhubung dan terbaca di tabel Knime.
+- Hasil data MySQL yang sudah terhubung dan terbaca di tabel Knime.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/db-reader-sql.PNG?raw=true)
 ### Proses Membaca dari CSV
 - Untuk membaca data dari CSV dapat langsung menggunakan CSV Reader.
@@ -48,9 +48,9 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/csv-reader-knime.PNG?raw=true) 
 
 ### Proses Modeling
- - Untuk melakukan proses modeling menggunakan column appender untuk meng-append data dari csv dan database.
+ - Untuk melakukan proses modeling menggunakan Column Appender untuk meng-append data dari csv dan database.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/column-appender.PNG?raw=true)
- - Kemudian melakukan execute pada column appender maka hasil tabel yang sudah diappend akan nampak seperti gambar di bawah.
+ - Kemudian melakukan execute pada Column Appender maka hasil tabel yang sudah diappend akan nampak seperti gambar di bawah.
 ![enter image description here](https://github.com/bimaramadhan/bigdata-its-2020/blob/tugas1/tugas1/gambar/hasil-append.PNG?raw=true)
 # Evaluation
 - Untuk evaluasi menggunakan online compare tools yaitu [https://extendsclass.com/csv-diff.html](https://extendsclass.com/csv-diff.html)
