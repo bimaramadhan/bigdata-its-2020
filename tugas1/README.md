@@ -1,3 +1,12 @@
+# Dokumentasi ETL menggunakan KNIME
+## Daftar Isi
+- [Business Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas1#business-understanding)
+- [Data Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas1#data-understanding)
+- [Data Preparation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas1#data-preparation)
+- [Modeling](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas1#modeling)
+- [Evaluation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas1#evaluation)
+- [Deployment](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas1#deployment)
+- [Workflow KNIME](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas1#workflow-knime)
 # Business Understanding
 Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
  - Mencari kata yang sering digunakan dalam dialog.
