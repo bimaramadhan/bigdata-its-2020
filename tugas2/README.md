@@ -14,13 +14,13 @@
 
 # Exercise DB
 ### 01_DB_Connect
-- Mengubah nama table dilakukan melalui DBeaver.<br/>
+- Mengubah nama table dilakukan melalui DBeaver<br/>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/rename_table.PNG?raw=true)
-- Berikut hasil nama-nama tabel yang telah direname.<br>
+- Berikut hasil nama-nama tabel yang telah direname<br>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/list_rename_table.PNG?raw=true)
 - Menambahkan node **SQLite Connector** untuk menyambungkan dengan database sqlite yang diinginkan<br>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/sqlite_connector.PNG?raw=true)
-- Menambahkan node **DB Table Selector** untuk melakukan seleksi pada table yang ingin dipakai.<br/>
+- Menambahkan node **DB Table Selector** untuk melakukan seleksi pada table yang ingin dipakai<br/>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/db_table_selector.PNG?raw=true)
 - Melakukan konfigurasi <br/>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/config_table_selector.PNG?raw=true)
@@ -32,68 +32,65 @@
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/workflow_1_DB_Connect.PNG?raw=true)
 
 ### 02_DB_InDB_Processing
-- memasang node sql connector <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/exercise_2_sql_connector.PNG "sql table")
-- memasang node table selector agar dapat memilih table 5116100133_ss13pme dan 5116100133_ss13hme  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/memilih_table.PNG "choose table")
-- memilih configuration pada node table selector  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/choose_exercise_2.PNG "conf choose table")
-- untuk meremove beberapa coloumn puma* dan pwgtp*  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_coloumn_filter.PNG "conf choose table")
-- konfigurasi untuk menghapus coloumn puma* dan pwgtp*  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/filter_conf.PNG "conf choose 2 table")
-- node db joiner untuk menyatukan dua table yang sudah dikondisikan  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_join.PNG "db join 2 table")
-- konfigurasi untuk menggabungkan berdasarkan serialno  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/conf_serialno.PNG "db join conf table")
-- memasang db reader untuk membaca hasil join  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_read.PNG "db read")
-- berikut hasilnya  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_result_serialno.PNG "db serialno")
+- Memasang node **SQLite Connector** untuk menyambungkan dengan database sqlite yang diinginkan<br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/sqlite_connector.PNG?raw=true)
+- Memasang node **DB Table Selector** agar dapat memilih tabel 05111740000081_ss13pme dan 05111740000081_ss13hme  <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/db_table_selector.PNG?raw=true)
+- Melakukan configuration pada node **DB Table Selector**<br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/config_select_ss13hme.PNG?raw=true)<br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/config_select_ss13pme.PNG?raw=true)
+ 
+ #### Joins ss13hme and ss13pme on SERIALNO
+- Memasang node **DB Joiner** untuk menggabungkan dua tabel <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/joiner.PNG?raw=true)
+- Melakukan konfigurasi untuk menggabungkan berdasarkan serialno  <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/config_joiner.PNG?raw=true)
+- Memasang **DB Reader** untuk membaca hasil join  <br/>
+- Berikut hasilnya  <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/hasil_join.PNG?raw=true)
+ 
+ #### Filters all rows from ss13pme where COW is NOT NULL 
+- Memasang **DB Column Filter** untuk menghapus kolom puma* dan pwgtp*  <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/column_filter.PNG?raw=true)
+- Melakukan konfigurasi untuk menghapus kolom puma* dan pwgtp*  <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/config_column_filter.PNG?raw=true)
+- Memilih node **DB Row Filter** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/filter_cow_not_null.PNG?raw=true)
+- Melakukan konfigurasi dan memilih cow is not null dalam node **DB Row Filter**<br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/config_row_filter_cownotnull.PNG?raw=true)
+- Menampilkan hasil dengan **DB Reader* <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/hasil_cownotnull.PNG?raw=true)
 
-##### memilih data dari 5116100133_ss13pme is null
-- memilih node db row filter <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_row_filter.PNG "sql table")
-- memilih cow is null dalam node db row filter <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/conf_exer2.PNG "sql table")
-- menampilkan hasil dengan db reader <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_read.PNG "read table")
-- hasil dari db reader <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/cow_null.PNG "read cow table")
+ #### Filters  all rows from ss13pme  where COW is NULL
+- untuk pemakaian node sama seperti ss13pme is not null yaitu **DB Row Filter** dan **DB Reader**, yang berbeda hanya di configuration<br> 
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/filter_cow_null.PNG?raw=true)
+- Configuration ketika di **DB Row Filter** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/config_filter_cownull.PNG?raw=true)
+- Menampilkan hasil dengan **DB Reader* <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/hasil_cownull.PNG?raw=true)
 
-##### memilih data dari 5116100133_ss13pme is not null
-- untuk pemakaian node sama seperti ss13pme is null, yang berbeda hanya di configuration, configuration ketika di db row filter <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/cow_is_not_null.PNG "sql table")
-- untuk setting hasil yang didapati dari db reader seperti berikut <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/result_not_null.PNG "sql table")
+ #### Calculate average AGEP for the different SEX groups
+- Memilih node **DB Groupby** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/groupby_average.PNG?raw=true)
+- Melakukan konfigurasi berdasar grup sex <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/config_groupby.PNG?raw=true)
+- Menampilkan hasil dengan **DB Reader** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/hasil_average_sex.PNG?raw=true)
 
-##### merata-rata kan AGEP untuk sex groups yang berbeda
-- memilih node db groupby <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_groupby.PNG "sql table")
-- melakukan setting an seperti ini sesuai perintah soal <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/setting_db_groupby.PNG "sql table")
-- menampilkan hasil dengan db reader <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_read.PNG "read table")
-- hasil dari db reader <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/hasil_agep.PNG "read cow table")
-
-
-##### mengurutkan AGEP
-- memilih node db sorter <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_sorter.PNG "sql table")
-- melakukan setting pada node sorter <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/agep_desc.PNG "sql table")
-- memilih node db query <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_query.PNG "sql table")
-- menjalankan syntax ini <br/>
+ #### Optional. Sort the data rows by descending AGEP and extract top 10 only..
+- Memasang node **DB Sorter** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/sort_data.PNG?raw=true)
+- Melakukan konfigurasi pada node **DB Sorter** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/config_dbsorter.PNG?raw=true)
+- Memasang node **DB Query** <br/>
+- Pada **DB Query** menjalankan syntax ini agar membatasi hanya menampilkan sebanyak 10<br/>
 ``` SELECT * FROM #table# AS "table" limit 10 ```
-- menampilkan hasil dengan db reader <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_read.PNG "read table")
-- hasil dari db reader <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_exer2_opt.PNG "read cow table")
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/config_db_query.PNG?raw=true)
+- Menampilkan hasil dengan db reader <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/hasil_sorter.PNG?raw=true)
 
-#### Gambar secara lengkap
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/hasil_exer2.PNG "sql table")
+#### Tampilan Workflow
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/workflow.PNG?raw=true)
 
 ### 03_DB_Modelling
 
