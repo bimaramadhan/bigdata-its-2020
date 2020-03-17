@@ -14,18 +14,22 @@
 
 # Exercise DB
 ### 01_DB_Connect
-- perubahan nama table dilakukan melalui DBeaver<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/rename.PNG "rename table")
-- kemudian menambahkan node table selector untuk melakukan seleksi pada table yang ingin dipakai, dengan table yang sudah satu path dengan DBclient<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/sqlite_table.PNG "sqlite table")
-- melakukan konfigurasi <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/konfigurasi_table_selector.PNG "sqlite configuration")
-- menambahkan node DB Reader agar data bisa terbaca <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_reader.PNG "sqlite reader")
-- dan memunculkan hasil seperti ini <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/hasil_exercise_01_db.PNG "result")
-- tampilan knime secara lengkap <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/arsitek_exercise_01.PNG "result knime")
+- Mengubah nama table dilakukan melalui DBeaver.<br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/rename_table.PNG?raw=true)
+- Berikut hasil nama-nama tabel yang telah direname.<br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/list_rename_table.PNG?raw=true)
+- Menambahkan node **SQLite Connector** untuk menyambungkan dengan database sqlite yang diinginkan<br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/sqlite_connector.PNG?raw=true)
+- Menambahkan node **DB Table Selector** untuk melakukan seleksi pada table yang ingin dipakai.<br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/db_table_selector.PNG?raw=true)
+- Melakukan konfigurasi <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/config_table_selector.PNG?raw=true)
+- Menambahkan node **DB Reader** untuk membaca data<br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/db_reader.PNG?raw=true)
+- Hasil data yang terbaca<br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/hasil_db_reader.PNG?raw=true)
+- Tampilan Workflow KNIME <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/1_DB_Connect/workflow_1_DB_Connect.PNG?raw=true)
 
 ### 02_DB_InDB_Processing
 - memasang node sql connector <br/>
