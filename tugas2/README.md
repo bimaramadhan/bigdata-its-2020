@@ -141,7 +141,7 @@
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/workflow.PNG?raw=true)
 
 ### 04_DB_WritingToDB
-- Disini tinggal melanjutkan workflow sebelumnya di atas dan menambahkan beberapa node untuk melakukan perinta Write
+- Disini tinggal melanjutkan workflow sebelumnya di atas dan menambahkan beberapa node untuk melakukan perintah Write
 #### Writes original table to ss13pme_original table with a Database Connection Table Writer node ... just in case we mess up with the updates
 - Memasang node **DB Connection Table Writer** <br>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/db_reader_original.PNG?raw=true)
