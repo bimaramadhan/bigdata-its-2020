@@ -58,15 +58,15 @@
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/filter_cow_not_null.PNG?raw=true)
 - Melakukan konfigurasi dan memilih cow is not null dalam node **DB Row Filter**<br/>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/config_row_filter_cownotnull.PNG?raw=true)
-- Menampilkan hasil dengan **DB Reader* <br/>
+- Menampilkan hasil dengan **DB Reader** <br/>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/hasil_cownotnull.PNG?raw=true)
 
- #### Filters  all rows from ss13pme  where COW is NULL
+ #### Filters  all rows from ss13pme where COW is NULL
 - untuk pemakaian node sama seperti ss13pme is not null yaitu **DB Row Filter** dan **DB Reader**, yang berbeda hanya di configuration<br> 
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/filter_cow_null.PNG?raw=true)
 - Configuration ketika di **DB Row Filter** <br/>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/config_filter_cownull.PNG?raw=true)
-- Menampilkan hasil dengan **DB Reader* <br/>
+- Menampilkan hasil dengan **DB Reader** <br/>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/hasil_cownull.PNG?raw=true)
 
  #### Calculate average AGEP for the different SEX groups
@@ -93,49 +93,52 @@
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/2_DB_InDB_Processing/workflow.PNG?raw=true)
 
 ### 03_DB_Modelling
+- Memasang node **SQLite Connector** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/connect_select_filter.PNG?raw=true)
+- Memasang node **DB Table Selector** agar dapat memilih tabel 05111740000081_ss13pme <br/>
+- Melakukan konfigurasi pada node **DB Table Selector**  <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/config_select_ss13pme.PNG?raw=true)
+- Memasang **DB Column Filter** untuk menghapus kolom puma* dan pwgtp* <br/>
+- Melakukan konfigurasi untuk menghapus kolom puma* dan pwgtp*  <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/config_column_filter.PNG?raw=true)
 
-- memasang node sql connector <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/exercise_2_sql_connector.PNG "sql table")
-- memasang node table selector agar dapat memilih table 5116100133_ss13pme <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/memilih_table.PNG "choose table")
-- memilih configuration pada node table selector  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/choose_exercise_2.PNG "conf choose table")
-- untuk meremove beberapa coloumn puma* dan pwgtp*  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_coloumn_filter.PNG "conf choose table")
-- konfigurasi untuk menghapus coloumn puma* dan pwgtp*  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/filter_conf.PNG "conf choose 2 table")
+#### Memilih data dari 05111740000081_ss13pme dimana Cow is not NULL
+- Memasang node **DB Row Filter** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/cow_not_null.PNG?raw=true)
+- Memilih cow is null dalam node **DB Row Filter** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/config_row_filter_cownotnull.PNG?raw=true)
+- Menampilkan hasil dengan **DB Reader** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/hasil_db_cownotnull.PNG?raw=true)
+- Memasang node **Number To String** <br/>
+- Melakukan konfigurasi pada node **Number To String**<br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/config_number_string.PNG?raw=true)
+- Memasang node **Decision Tree Learner** <br/>
+- Melakukan konfigurasi perhitungan bisa menggunakan gain ratio dan gini index pada node **Decision Tree Learner**<br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/config_dec_tree_learner.PNG?raw=true)
+- Tampilan decision tree <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/hasil_dec_tree_learner.PNG?raw=true)
 
-##### memilih data dari 5116100133_ss13pme is null
-- memilih node db row filter <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_row_filter.PNG "sql table")
-- memilih cow is null dalam node db row filter <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/conf_exer2.PNG "sql table")
-- menampilkan hasil dengan db reader <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_read.PNG "read table")
-- hasil dari db reader <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/cow_null.PNG "read cow table")
-- memilih node number to string <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/number_string.PNG "sql table")
-- mengkonfigurasi sesuai soal <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/config_string.PNG "sql table")
-- memilih node decision tree learner <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/node_decision_tree.PNG "read table")
-- konfigurasi perhitungan bisa menggunakan gain ratio dan gini index pada konfigurasi, tetapi jangan lupa untuk memilih class yang akan di setting <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/config_string.PNG "read cow table")
-- tampilan view tree <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/view_tree.PNG "read table")
+#### Memilih data dari 05111740000081_ss13pme dimana Cow is NULL
+- Memasang node **DB Row Filter** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/cow_null.PNG?raw=true)
+- Memilih cow is null dalam node **DB Row Filter** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/config_filter_cownull.PNG?raw=true)
+- Memasang node **DB Column Filter** untuk menghapus kolom Cow
+- Melakukan konfigurasi pada node **DB Column Filter** 
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/config_column_filter_rmcow.PNG?raw=true)
+- Menampilkan hasil dengan **DB Reader** <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/hasil_db_cownull.PNG?raw=true)
 
-##### memilih data dari 5116100133_ss13pme is not null
-- untuk pemakaian node sama seperti ss13pme is null, yang berbeda hanya di configuration, configuration ketika di db row filter <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/cow_is_not_null.PNG "sql table")
-- untuk setting hasil yang didapati dari db reader seperti berikut <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/result_not_null.PNG "sql table")
+#### Hasil
+- Memasang node **Decision Tree Predictor**, dan disambungkan dengan data cow is null dan data cow is not null yang telah diolah <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/decision_tree_predictor.PNG?raw=true)
+- Melakukan konfigurasi pada node **Decision Tree Predictor**
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/config_dec_tree_predictor.PNG?raw=true)
+- Tampilan decision tree hasil train <br/>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/hasil_dec_tree_predictor.PNG?raw=true)
 
-### hasil
-- memilih node decision tree predictor, dan disambungkan dengan data cow is null dan data cow is not null yang telah diolah <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/node_predict.PNG "read table")
-- hasil train <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/predict.PNG "read cow table")
+#### Tampilan Workflow
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/workflow.PNG?raw=true)
 
 ### 04_DB_WritingToDB
 
