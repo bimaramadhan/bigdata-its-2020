@@ -141,55 +141,41 @@
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/3_DB_Modelling/workflow.PNG?raw=true)
 
 ### 04_DB_WritingToDB
+- Disini tinggal melanjutkan workflow sebelumnya di atas dan menambahkan beberapa node untuk melakukan perinta Write
+#### Writes original table to ss13pme_original table with a Database Connection Table Writer node ... just in case we mess up with the updates
+- Memasang node **DB Connection Table Writer** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/db_reader_original.PNG?raw=true)
+- Melakukan konfigurasi pada **DB Connection Table Writer** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/config_db_connection_table.PNG?raw=true)
+- Memasang node **DB Reader** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/db_reader_original.PNG?raw=true)
+- Menampilkan hasil dengan **DB Reader** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/hasil_tabel_original.PNG?raw=true)
+#### Writes model and timestamp with a Database Writer node
+- Memasang node **Timestamp and Model** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/db_writer_timestamp.PNG?raw=true)
+- Memasang node **DB Writer** <br>
+- Melakukan konfigurasi pada **DB Writer** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/config_db_writer_timestamp.PNG?raw=true)
+- Memasang node **DB Reader** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/db_reader_timestamp.PNG?raw=true)
+- Menampilkan hasil dengan **DB Reader** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/hasil_tabel_timestamp.PNG?raw=true)
+#### Writes COW prediction where COW value is missing through a Database Update node
+- Memasang node **DB Update** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/db_update.PNG?raw=true)
+- Melakukan konfigurasi pada **DB Update** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/config_db_update.PNG?raw=true)
+- Memasang node **Row Filter** untuk mengecek update status
+- Melakukan konfigurasi pada node **Row Filter** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/config_update_status.PNG?raw=true)
+- Memasang node **DB Reader** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/db_reader_db_update.PNG?raw=true)
+- Menampilkan hasil dengan **DB Reader** <br>
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/hasil_tabel_update.PNG?raw=true)
 
-- memasang node sql connector <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/exercise_2_sql_connector.PNG "sql table")
-- memasang node table selector agar dapat memilih table 5116100133_ss13pme <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/memilih_table.PNG "choose table")
-- memilih configuration pada node table selector  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/choose_exercise_2.PNG "conf choose table")
-- memilih node db connection untuk menyimpan original table  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_connection.PNG "conf choose table")
-- untuk meremove beberapa coloumn puma* dan pwgtp*  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_coloumn_filter.PNG "conf choose table")
-- konfigurasi untuk menghapus coloumn puma* dan pwgtp*  <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/filter_conf.PNG "conf choose 2 table")
-
-##### memilih data dari 5116100133_ss13pme is null
-- memilih node db row filter <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_row_filter.PNG "sql table")
-- memilih cow is null dalam node db row filter <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/conf_exer2.PNG "sql table")
-- menampilkan hasil dengan db reader <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_read.PNG "read table")
-- hasil dari db reader <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/cow_null.PNG "read cow table")
-- memilih node number to string <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/number_string.PNG "sql table")
-- mengkonfigurasi sesuai soal <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/config_string.PNG "sql table")
-- memilih node decision tree learner <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/node_decision_tree.PNG "read table")
-- konfigurasi perhitungan bisa menggunakan gain ratio dan gini index pada konfigurasi, tetapi jangan lupa untuk memilih class yang akan di setting <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/config_string.PNG "read cow table")
-- tampilan view tree <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/view_tree.PNG "read table")
-
-##### memilih data dari 5116100133_ss13pme is not null
-- untuk pemakaian node sama seperti ss13pme is null, yang berbeda hanya di configuration, configuration ketika di db row filter <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/cow_is_not_null.PNG "sql table")
-- untuk setting hasil yang didapati dari db reader seperti berikut <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/result_not_null.PNG "sql table")
-
-### hasil
-- memilih node decision tree predictor, dan disambungkan dengan data cow is null dan data cow is not null yang telah diolah <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/node_predict.PNG "read table")
-- hasil tree train yang disambungkan ke db update <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/predict.PNG "read cow table")
-- db update untuk melakukan update untuk mengisi kolom serial no berdasarkan kolom cow yang sudah diprediksi<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_update_node.PNG "read table")
-- hasil db update <br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_2/picture/db_update.PNG "read cow table")
+#### Tampilan Workflow
+![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/4_DB_WritingToDB/workflow.PNG?raw=true)
 
 # Hadoop Exercise
 ### 00_Setup_Hive_Table
