@@ -198,7 +198,7 @@ Dengan arsitektur ini kita menggunakan node **Local Big Data Environment** untuk
 ### 02_Hive_WritingtoDB
 - Untuk bagian ini melanjutkan modelling yang sudah dilakukan di atas. Kemudian mempersiapkan untuk di arahkan kepada hive, node **DB Table Creator** akan membuat tabel dengan nama baru dan node **DB Loader** akan mengkonfigurasi
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/7_Hive_WritingToDB/workflow.PNG?raw=true)
-- Melakukan konfigurasi node **DB Table Creator**
+- Melakukan konfigurasi node **DB Table Creator** <br>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/7_Hive_WritingToDB/rename_tabel.PNG?raw=true)
 - Melakukan konfigurasi node **DB Loader**
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/7_Hive_WritingToDB/config_dbloader.PNG?raw=true)
