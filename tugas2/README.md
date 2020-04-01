@@ -200,7 +200,7 @@ Dengan arsitektur ini kita menggunakan node **Local Big Data Environment** untuk
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/7_Hive_WritingToDB/workflow.PNG?raw=true)
 - Melakukan konfigurasi node **DB Table Creator** <br>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/7_Hive_WritingToDB/rename_tabel.PNG?raw=true)
-- Melakukan konfigurasi node **DB Loader**
+- Melakukan konfigurasi node **DB Loader** <br>
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/7_Hive_WritingToDB/config_dbloader.PNG?raw=true)
 - Menjalankan syntax di dbeaver hive dengan syntax ``SELECT * FROM 05111740000081_newtable``
 ![alt text](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas2/gambar/7_Hive_WritingToDB/dbeaver_newtable.PNG?raw=true)
