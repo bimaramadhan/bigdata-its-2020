@@ -19,7 +19,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 # Data Understanding
 
 - Dataset yang digunakan adalah kumpulan data yang menampung rating berbasis 5-bintang berjumlah 20000263 rating, dan 465564 tag dari keseluruhan 27278 film. Data menampung rating dari 138493 user sejak tanggal 9 Januari 1995 sampai 31 Maret 2015. Dataset ini sendiri dibuat pada 17 Oktober 2016.
-- Dataset ini berisi 6 genome-scores.csv, genome-tags.csv, links.csv, movies.csv, ratings.csv and tags.csv
+- Dataset ini berisi 6 file, genome-scores.csv, genome-tags.csv, links.csv, movies.csv, ratings.csv dan tags.csv
 - **Ratings Data File Structure (ratings.csv)**
   - Semua peringkat ada di file ratings.csv. Setiap baris file ini setelah baris tajuk mewakili satu peringkat satu film oleh satu pengguna, dan memiliki format berikut: userId, movieId, rating, timestamp
   - Baris-baris di dalam file ini diurutkan terlebih dahulu dari userId, lalu, di dalam pengguna, oleh movieId.
@@ -48,118 +48,83 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 
 # Data Preparation
 
-- data disiapkan dengan dua cara, yang satu menyiapkan data yang didownload dari link di atas, <br/>
-  karena berbentuk csv dan menyiapkan data   yang menggunakan spark. dua persiapan tersebut dilakukan<br/> 
-  dengan menyiapkan node di KNIME.
-
-### File Reader File
-
-- yang pertama membaca data dari file yang sudah di download dari file terlampir. yang dibaca hanya <br/>
-  movies.csv<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/file_reader.PNG "file reader")<br>
-
-- dengan melakukan konfigurasi seperti ini, dengan memastikan movieID terbaca<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/file_reader_conf.PNG "file reader conf")<br>
-
-- dari ini kita melakukan konfigurasi di dalam node add fields untuk menambahkan userid dan timestamp.<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/add_fields.PNG "add field")<br>
-
-- di dalam add field terdapat workflow yang dapat menyeting userid dan timestamp<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/node_add_fields.PNG "add field")<br>
-
-- melakukan konfigurasi di dalam node constant value untuk menyeting timestamp dan node selanjutnya untuk menyeting 
-  userid<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/node_timestamp.PNG "add field")
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/timestamp.PNG "add field")<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/node_userid.PNG "add field")
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/userid.PNG "add field")<br>
-
-- melakukan penambahan node row splitter untuk memecah data untuk keperluan mentraining data serta memilih 20 film<br/>
-  yang dipilih secara acak.<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/row_splitter.PNG "add field")<br>
-
-- melakukan konfigurasi di dalam row splitter seperti ini<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/row_splitter_conf.PNG "add field")<br>
-
-- open vie node tersebut untuk melihat hasilnya<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/node_rating.PNG "add field")<br>
-
-- hasil rating didapati seperti ini, dengan keterangan tertera pada gambar, hasil ini sesuai dengan userid yang <br/>
-  disetting<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/hasil_ratings.PNG "add field")<br>
-
-### File Reader versi SPARK
-
-- memulai dengan memasang node local big data environment untuk disambung ke node spark<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/local_bigdata.PNG "add field")<br>
-
-- pastikan konfigurasi seperti ini<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/conf_local_bigdata.PNG "add field")<br>
-
-- sambungkan local environment big data dengan spark, sehingga dapat membaca file dari directory yang tertera<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/spark.PNG "add field")
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/conf_spark.PNG "add field")<br>
-
-- pasang node spark partitioning untuk melakukan partisi 80-20 pada data, setelah itu datanya digunakan untuk<br/> 
-  training model dataset<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/partition.PNG "add field")<br>
-
-- pastikan memilih persen dan memilih draw randomly.<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/conf_partition.PNG "add field")<br>
+- Pertama membuat spark context menggunakan node **Create Local Big Data Environment**
+<br>![](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas3/gambar/create-local-big-data.PNG?raw=true)<br/>
+- Melakukan konfigurasi pada node tersebut
+<br>![](gambar/konfig-big-data-environment.PNG)<br/>
+- Kemudian disini membangun profil user dengan id misal adalah 999999 untuk menilai 20 film acak
+<br>![](gambar/build-current-user-profile.PNG)<br/>
+- Melakukan konfigurasi pada node **File Reader** untuk membaca data movies.csv
+<br>![](gambar/konfig-file-reader.PNG)<br/>
+- Menambahkan node **add fields**. Didalam **add fields** terdapat beberapa proses seperti gambar di bawah ini
+<br>![](gambar/add-fields.PNG)<br/>
+  - node **Shuffle** untuk mengacak urutan baris pada data
+  - melakukan konfigurasi pada node **Constant Value Column** untuk menambahkan kolom timestamp=123 dan userID=999999
+  <br>![](gambar/konfig-timestamp.PNG)<br/>
+  <br>![](gambar/konfig-userid.PNG)<br/>
+- Melakukan konfigurasi pada node **Row Splitter** untuk mengambil 20 film yang akan dinilai oleh user sedangkan film sisanya nanti akan digunakan saat proses **Deployment**
+<br>![](gambar/konfig-row-splitter.PNG)<br/>
+- Menambahkan node **no rating** yang di dalamnya terdapat beberapa node seperti berikut
+<br>![](gambar/no-rating.PNG)<br/>
+- Proses pada node tersebut untuk menyiapkan data saat **Deployment** nanti
+- Kemudian menambahkan node **Ask User for Movie Ratings** yang mana terdapat beberapa node di dalamnya yang intinya adalah untuk memberikan rating pada 20 film yang sudah diambil
+<br>![](gambar/ask-user-rating.PNG)<br/>
+- Berikut hasilnya jika kita klik interactive view
+<br>![](gambar/interactive-view-movie-rating.PNG)<br/>
+- Menambahkan node **Table to Spark** untuk membuat dataframe spark dari data table yang sudah ada rating dari user untuk digunakan saat proses **Training**
+<br>![](gambar/table-to-spark-rated.PNG)<br/>
+- Proses selanjutnya yaitu membaca file ratings.csv dengan node **CSV to Spark** untuk kemudian digunakan saat proses **Training**
+<br>![](gambar/csv-to-spark.PNG)<br/>
+- Melakukan konfigurasi pada node **CSV to Spark** untuk membuat dataframe spark dari file ratings.csv
+<br>![](gambar/konfig-csv-to-spark.PNG)<br/>
+- Melakukan konfigurasi pada node **Spark Partitioning** untuk mempartisi file dan menggunakan 80% untuk **Training** dan 20% untuk **Testing**
+<br>![](gambar/konfig-spark-partitioning.PNG)<br/>
 
 # Modeling
 
-- proses modeling dimulai ketika menggabungkan data di node spark concatenate, dan node dari ini untuk<br>
-  menjalankan algoritma buat modeling dengan memakai data training set, yang nantinya akan di tes dengan test-set.<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/model.PNG "add field")<br>
+- Proses **Modeling** diawali dengan menggabungkan dua data menggunakan node **Spark Concatenate** yaitu data rating dan data film yang sudah diberi rating oleh user dengan konfigurasi training set=80% original movies + 20 movies rated by user
+<br>![](gambar/modeling-training.PNG)<br/>
+- Lalu Menambahkan node **Spark Collaborative Filtering Learner (MLlib)** dan lakukan konfigurasi untuk training dengan model algoritma ALS 
+<br>![](gambar/konfig-spark-collaborative-training.PNG)<br/>
 
 # Evaluation
 
-- data yang sudah diprediksi berupa seperti ini
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/hasilprediksi.PNG "add field")<br>
-
-- dari data yang sudah di modeling dan dari proses evaluasi ini menghapus juga data NAN.setalah itu terdapat hasil<br>
-  untuk menghitung kesalahan antar peringkat film yang awal dan film yang diprediksi.<br/>
- ![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/evaluation.PNG "add field")<br>
- 
- - didapati hasil evaluasi dari percobaan seperti berikut<br>
-  ![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/hasil_prediksi.PNG "add field")<br>
- 
+- Kemudian melakukan **Testing** untuk Proses **Evaluasi** model dengan test set=20% original movies yang didapat dari proses partisi node **Spark Partitioning** 
+<br>![](gambar/testing-evaluating.PNG)<br/>
+- Melakukan konfigurasi node **Spark Predictor (MLlib)** untuk melakukan prediksi rating pada test set dan meletakkannya pada kolom prediction
+<br>![](gambar/konfig-spark-predictor.PNG)<br/>
+- Berikut tampilan contoh hasil dari prediksi pada test set
+<br>![](gambar/hasil-prediction.PNG)<br/>
+- Melakukan konfigurasi pada node **Spark Missing Value** untuk menghapus NaN dan prediksi yang kosong
+<br>![](gambar/konfig-spark-missing-value.PNG)<br/>
+- Melakukan konfigurasi pada node **Spark Numeric Scorer** menghitung kesalahan numerik antara original ratings dan predicted ratings
+<br>![](gambar/konfig-spark-numeric-scorer.PNG)<br/>
+- Berikut hasil perhitungan dapat dilihat pada gambar di bawah
+<br>![](gambar/hasil-spark-numeric-scorer.PNG)<br/> 
 
 # Deployment
 
-- workflow ini akan mendisplay 10 peringkat prediksi film rekomendasi<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/deploy.PNG " asli csv")<br/>
-
-### konfigurasi node top 20
-- tidak lupa menjalankan file reader untuk di join dengan file prediksi<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/deploy_read.PNG " asli csv")<br/>
-
-- jalankan spark predictor dan akan mendapati hasil seperti ini<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/spark_deploy.PNG " asli csv")<br/>
-
-- kemudian jalankan spark to table untu mengubah spark ke dalam table, kemudian masuk ke konfigurasi movies recommended<br>
-  dan di dalamnya ada file reader dan joiner, untuk menggabungkan data yang awal dengan data yang telah diprediksi.<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/recom.PNG " asli csv")<br/>
-
-- row filter disini untuk menghapus hasil prediksi yang hasilnya NAN<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/row_predik.PNG " asli csv")<br/>
-
-- dan untuk mengurutkan data hasilnya dipilih ascending untuk nilai kolom prediction<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/asc.PNG " asli csv")<br/>
-
-- row filter dipakai dua kali, untuk row filter terakhir digunakan untuk mengambil best 10 nya, dan outputnya<br>
-  disimpan ke direktori ke yang sudah kita pasang menggunakan csv writer.<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/best.PNG " asli csv")<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/excel.PNG " asli csv")<br/>
-
-## hasil deploy
-- hasil yang didapati adalah sebagai berikut sesuai dengan arahan untuk memberi best 10 movie<br>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/hasil_done.PNG " asli csv")<br/>
+- Terakhir yaitu proses **Deployment** untuk membuat prediksi 20 terbaik film untuk user
+<br>![](gambar/deployment.PNG)<br/> 
+- Pertama menambahkan node **Table to Spark** untuk membuat dataframe spark dari data film yang tidak diberikan rating oleh user
+<br>![](gambar/table-to-spark-unrated.PNG)<br/> 
+- Melakukan konfigurasi node **Spark Predictor (MLlib)** untuk melakukan prediksi rating pada unrated movies dan meletakkannya pada kolom prediction
+<br>![](gambar/konfig-spark-predictor.PNG)<br/> 
+- Menambahkan node **Spark to Table** untuk memuat data dari dataframe spark ke data table 
+- Menambahkan node **Top 20 recommended movies** yang di dalamnya terdapat node-node seperti berikut
+<br>![](gambar/top-20.PNG)<br/> 
+- Proses pada node-node di atas adalah untuk mengurutkan rekomendasi film berdasarkan rating yang terbaik dan mengekstraknya sebanyak 20 film terbaik
+- Menambahkan node **Display Recommendations** yang mana terdapat beberapa node di dalamnya
+<br>![](gambar/display-recommendation.PNG)<br/> 
+- Fungsi node tersebut adalah untuk menampilkannya pada portal web hasilnya adalah seperti berikut
+<br>![](gambar/hasil-web.PNG)<br/> 
+- Menambahkan node **CSV Writer** dan melakukan konfigurasi untuk menyimpannya dalam bentuk file csv
+<br>![](gambar/konfig-csv-write.PNG)<br/> 
+- Berikut file telah terbuat
+<br>![](gambar/hasil-csv-write.PNG)<br/> 
 
 # Workflow KNIME
-susunan KNIME seperti berikut
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/arsitek.PNG " asli csv")<br/>
+![](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas3/gambar/workflow.PNG?raw=true)<br/>
 
 # Perbandingan Waktu yang Diperlukan File Reader dan CSV to Spark untuk Membaca File
 
