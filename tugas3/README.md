@@ -128,16 +128,16 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 
 # Perbandingan Waktu yang Diperlukan File Reader dan CSV to Spark untuk Membaca File
 
-- untuk melakukan perbandingan antara csv to spark dengan reader, kita harus menambahkan node seperti berikut<br> 
-  dan mengarahkan kepada data csv yang sama<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/timer.PNG " asli csv")<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/konfi.PNG " asli csv")<br/>
+- Untuk melakukan perbandingan node **File Reader** dan **CSV to Spark**, ditambahkan node **Timer Info** seperti berikut
+<br>![](gambar/timer-info.PNG)<br/> 
+- Dapat dilihat perbandingan waktu eksekusi(dalam detik) kedua node tersebut pada gambar di bawah
+<br>![](gambar/kolom-timer-info.PNG)<br/> 
+![](gambar/time-csv-to-spark.PNG)<br/> 
+![](gambar/time-file-reader.PNG)<br/> 
 
-- perbedaan data sebagai berikut<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/spark_time.PNG " asli csv")<br/>
-![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/read_time.PNG " asli csv")<br/>
-
-- dari data diatas sangat jauh perbedaan antara csv to spark dengan file reader, file reader hanya melakukan pengambilan<br/>
-  data yang sangat besar dan ketika melakukan eksekusi, komputer hanya melakukan itu  sendiri tanpa bantuan framework<br/>
-  computing apapun, tidak seperti spark yang merupakan open source cluster framework, spark itu untuk pemrosesan data<br/>
-  yang lebih cepat, karena data yang dipakai juga besar, jadi terdapat perbedaan waktu yang mencolok.<br/>
+### Kesimpulan
+- Jika dilihat dari perbandingan di atas terlihat perbedaan waktu eksekusi yang cukup signifikan antara kedua node. Node **CSV to Spark** melakukan pemrosesan secara paralel sehingga cocok dan akan lebih cepat jika memproses suatu data yang sangat besar dibandingkan dengan node **File Reader** yang pemrosesan membaca data tidak paralel sehingga akan lebih lambat. 
+- Tetapi bisa saja jika data yang digunakan tidak terlalu besar maka node **CSV to Spark** akan lebih lambat dibandingkan node **File Reader** karena proses membagi data menjadi beberapa bagian dan dilakukan proses secara paralel tersebut yang justru memakan waktu lama.
+<br>![](gambar/kolom-timer-info.PNG)<br/> 
+![](gambar/time-csv-to-spark-2.PNG)<br/> 
+![](gambar/time-file-reader-2.PNG)<br/> 
