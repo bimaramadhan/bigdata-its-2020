@@ -10,52 +10,41 @@
 - [Perbandingan Waktu yang Diperlukan File Reader dan CSV to Spark untuk Membaca File](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#perbandingan-waktu-yang-diperlukan-file-reader-dan-csv-to-spark-untuk-membaca-file)
 
 # Business Understanding
-Kemungkinan-kemungkinan yg dapat dilakukan yaitu:
-1. Dari data tersebut, dapat dilakukan proses untuk melihat rekomendasi film terbaik yang dinilai oleh sebelumnya
-2. Dari data tersebut, dapat dilihat berupa kumpulan data dengan isi kumpulan film yang disertai dengan ratings
-3. Dari data tersebut, dapat dilakukan proses evaluasi serta filtering agar menghasilkan 10 film terbaik yang sudah dinilai sebelumnya
+Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
+- Melihat daftar film terbaik berdasar data rating yang ada
+- Mengelompokkan film berdasarkan genre yang diinginkan
+- Melihat daftar film populer pada tiap genre
+- Membuat sistem rekomendasi film
 
 # Data Understanding
 
-- Dataset menggambarkan penilaian dari movielens sebagai pelayanan movie recommendation, dataset ini berisi 20000263<br>
-  peringkat, data ini dibuat oleh 138493 pengguna dari tanggal 09 januari 1995 sampai 31 maret 2015. dataset ini berisi<br>
-  pengguna yang dipilih secara acak untuk dimasukkan. semua pengguna memiliki nilai setidaknya 20 film.
-  
-- dataset  masing-masing pengguna di representasi oleh id
-
-- dataset berisi csv sebagai berikut :
-  - tag.csv that berisi tags movie yang dilakukan oleh users:
-  - userId
-  - movieId
-  - tag
-  - timestamp
-
-- rating.csv rating yang dilakukan oleh users:
-  - userId
-  - movieId
-  - rating
-  - timestamp
-  
-- movie.csv mengandung informasi dari movie:
-  - movieId
-  - title
-  - genres
-  
-- link.csv pengidentifikasi yang disangkutpautkan ke source lain:
-  - movieId
-  - imdbId
-  - tmbdId
-  
-- genome_scores.csv mengandung movie-tag relevance data:
-  - movieId
-  - tagId
-  - relevance
-  
-- genome_tags.csv mengandung tag descriptions:
-  - tagId
-  - tag
-  
-- Source dataset : https://grouplens.org/datasets/movielens/
+- Dataset yang digunakan adalah kumpulan data yang menampung rating berbasis 5-bintang berjumlah 20000263 rating, dan 465564 tag dari keseluruhan 27278 film. Data menampung rating dari 138493 user sejak tanggal 9 Januari 1995 sampai 31 Maret 2015. Dataset ini sendiri dibuat pada 17 Oktober 2016.
+- Dataset ini berisi 6 genome-scores.csv, genome-tags.csv, links.csv, movies.csv, ratings.csv and tags.csv
+- Ratings Data File Structure (ratings.csv)
+  - Semua peringkat ada di file ratings.csv. Setiap baris file ini setelah baris tajuk mewakili satu peringkat satu film oleh satu pengguna, dan memiliki format berikut: userId, movieId, rating, timestamp
+  - Baris-baris di dalam file ini diurutkan terlebih dahulu dari userId, lalu, di dalam pengguna, oleh movieId.
+  - Peringkat dibuat pada skala 5 bintang, dengan peningkatan setengah bintang (0,5 bintang - 5,0 bintang).
+  - Timestamp mewakili detik sejak tengah malam Waktu Universal Terkoordinasi (UTC) 1 Januari 1970.
+- Tags Data File Structure (tags.csv)
+  - Semua tag terdapat dalam file tags.csv. Setiap baris file ini setelah baris tajuk mewakili satu tag yang diterapkan pada satu film oleh satu pengguna, dan memiliki format berikut: userId, movieId, tag, cap waktu
+  - Baris-baris di dalam file ini diurutkan terlebih dahulu dari userId, lalu, di dalam pengguna, oleh movieId.
+  - Tag adalah metadata yang dibuat pengguna tentang film. Setiap tag biasanya satu kata atau frasa pendek. Arti, nilai, dan tujuan dari tag tertentu ditentukan oleh setiap pengguna.
+  - Timestamp mewakili detik sejak tengah malam Waktu Universal Terkoordinasi (UTC) 1 Januari 1970.
+- Movies Data File Structure (movies.csv)
+  - Informasi film terdapat dalam file movies.csv. Setiap baris file ini setelah baris tajuk mewakili satu film, dan memiliki format berikut: movieId, judul, genre
+  - Judul film dimasukkan secara manual atau diimpor dari https://www.themoviedb.org/, dan termasuk tahun rilis dalam tanda kurung. Kesalahan dan ketidakkonsistenan mungkin ada dalam judul-judul ini.
+- Links Data File Structure (links.csv)
+  - Pengidentifikasi yang dapat digunakan untuk menautkan ke sumber data film lain terkandung dalam file links.csv. Setiap baris file ini setelah baris tajuk mewakili satu film, dan memiliki format berikut: movieId, imdbId, tmdbId
+  - movieId adalah pengidentifikasi untuk film yang digunakan oleh https://movielens.org. E.g., film Toy Story memiliki tautan https://movielens.org/movies/1.
+  - imdbId adalah pengidentifikasi untuk film yang digunakan oleh http://www.imdb.com. E.g., film Toy Story memiliki tautan http://www.imdb.com/title/tt0114709/.
+  - tmdbId adalah pengidentifikasi untuk film yang digunakan oleh https://www.themoviedb.org. E.g., film Toy Story memiliki tautan https://www.themoviedb.org/movie/862.
+- Tag Genome (genome-scores.csv and genome-tags.csv)
+  - Tag Genome adalah struktur data yang berisi skor relevansi tag untuk film. Strukturnya adalah matriks padat: setiap film dalam genom memiliki nilai untuk setiap tag dalam genome.
+  - Seperti yang dijelaskan dalam artikel ini, tag genome mengkodekan seberapa kuat film menunjukkan properti tertentu yang diwakili oleh tag (atmosfer, pemicu pemikiran, realistis, dll.). Tag genome dihitung menggunakan algoritma pembelajaran mesin pada konten kontribusi pengguna termasuk tag, peringkat, dan ulasan tekstual.
+  - Genome dibagi menjadi dua file. File genome-score.csv berisi data relevansi tag-film dalam format berikut: movieId, tagId, relevansi
+  - File kedua, genome-tags.csv, memberikan deskripsi tag untuk ID tag dalam file genome, dalam format berikut: tagId, tag
+  - Nilai-nilai tagId dihasilkan ketika set data diekspor, sehingga mereka dapat bervariasi dari versi ke versi set data MovieLens.
+- Sumber : [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/)
 
 # Data Preparation
 
