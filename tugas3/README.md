@@ -1,13 +1,13 @@
-## Bigdata 2020
-
-# Dokumentasi Praktek Recommendation System menggunakan KNIME
-
-* [Business Understanding](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/README.md#business-understanding)<br/>
-* [Data Understanding](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/README.md#data-understanding)<br/>
-* [Data Preparation](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/README.md#data-preparation)<br/>
-* [Modeling](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/README.md#modeling)<br/>
-* [Evaluation](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/README.md#evaluation)<br/>
-* [Deployment](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/README.md#deployment)<br/>
+# Dokumentasi Movie Recommendation Engine menggunakan Apache Spark (KNIME)
+## Daftar Isi
+- [Business Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#business-understanding)
+- [Data Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#data-understanding)
+- [Data Preparation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#data-preparation)
+- [Modeling](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#modeling)
+- [Evaluation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#evaluation)
+- [Deployment](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#deployment)
+- [Workflow KNIME](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#workflow-knime)
+- [Perbandingan Waktu yang Diperlukan File Reader dan CSV to Spark untuk Membaca File](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#Perbandingan-Waktu-yang-Diperlukan-File-Reader-dan-CSV-to-Spark-untuk-Membaca-File)
 
 # Business Understanding
 Kemungkinan-kemungkinan yg dapat dilakukan yaitu:
@@ -168,11 +168,11 @@ Kemungkinan-kemungkinan yg dapat dilakukan yaitu:
 - hasil yang didapati adalah sebagai berikut sesuai dengan arahan untuk memberi best 10 movie<br>
 ![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/hasil_done.PNG " asli csv")<br/>
 
-# susunan KNIME
+# Wokflow KNIME
 susunan KNIME seperti berikut
 ![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_3/picture/arsitek.PNG " asli csv")<br/>
 
-# 3.Perbandingan menggunakan timer info
+# Perbandingan Waktu yang Diperlukan File Reader dan CSV to Spark untuk Membaca File
 
 - untuk melakukan perbandingan antara csv to spark dengan reader, kita harus menambahkan node seperti berikut<br> 
   dan mengarahkan kepada data csv yang sama<br/>
