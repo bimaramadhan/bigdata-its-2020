@@ -56,11 +56,11 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 # Data Preparation
 
 - Pertama membuat spark context menggunakan node **Create Local Big Data Environment**
-
 <br>![](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas3/gambar/create-local-big-data.PNG?raw=true)<br/>
 
 - Melakukan konfigurasi pada node tersebut
 <br>![](gambar/konfig-big-data-environment.PNG)<br/>
+
 - Kemudian disini membangun profil user dengan id misal adalah 999999 untuk menilai 20 film acak
 <br>![](gambar/build-current-user-profile.PNG)<br/>
 - Melakukan konfigurasi pada node **File Reader** untuk membaca data movies.csv
