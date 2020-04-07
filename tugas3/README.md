@@ -18,7 +18,11 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 
 # Data Understanding
 
-- Dataset yang digunakan adalah kumpulan data yang menampung rating berbasis 5-bintang berjumlah 20000263 rating, dan 465564 tag dari keseluruhan 27278 film. Data menampung rating dari 138493 user sejak tanggal 9 Januari 1995 sampai 31 Maret 2015. Dataset ini sendiri dibuat pada 17 Oktober 2016.
+- Dataset yang digunakan adalah kumpulan data yang menampung rating berbasis 5-bintang dan aktivitas free-text tagging dari [MovieLens](http://movielens.org), sebuah website layanan rekomendasi film. 
+
+- Dataset ini berjumlah 20000263 rating, dan 465564 tag dari keseluruhan 27278 film. Data ini dibuat oleh 138493 user sejak tanggal 9 Januari 1995 sampai 31 Maret 2015. Dataset ini dibuat pada 31 Maret 2015, dan diperbarui pada 17 Oktober 2016 untuk memperbarui links.csv dan menambahkan file genome-*.
+
+- Pengguna dipilih secara acak untuk dimasukkan. Semua pengguna yang terpilih menilai setidaknya 20 film. Tidak ada informasi demografis yang disertakan. Setiap pengguna diwakili oleh id, dan tidak ada informasi lain yang disediakan.
 
 - Dataset ini berisi 6 file, genome-scores.csv, genome-tags.csv, links.csv, movies.csv, ratings.csv dan tags.csv
 
