@@ -149,7 +149,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 ![](gambar/time-file-reader.PNG)<br/> 
 
 ### Kesimpulan
-- Jika dilihat dari perbandingan di atas terlihat perbedaan waktu eksekusi yang cukup signifikan antara kedua node. Node **CSV to Spark** melakukan pemrosesan secara paralel sehingga cocok dan akan lebih cepat jika memproses suatu data yang sangat besar dibandingkan dengan node **File Reader** yang pemrosesan membaca data tidak paralel sehingga akan lebih lambat. 
+- Jika dilihat dari perbandingan di atas terlihat perbedaan waktu eksekusi yang cukup signifikan antara kedua node. Node **CSV to Spark** melakukan pembagian data menjadi beberapa bagian untuk kemudian dilakukan pemrosesan secara paralel sehingga cocok dan akan lebih cepat jika memproses suatu data yang sangat besar dibandingkan dengan node **File Reader** yang pemrosesan membaca data tidak paralel sehingga akan lebih lambat. 
 - Tetapi bisa saja jika data yang digunakan tidak terlalu besar maka node **CSV to Spark** akan lebih lambat dibandingkan node **File Reader** karena proses membagi data menjadi beberapa bagian dan dilakukan proses secara paralel tersebut yang justru memakan waktu lama. Berikut perbandingan kedua node saat membaca file yang berrukuran kecil.
 <br>![](gambar/kolom-timer-info.PNG)<br/> 
 ![](gambar/time-csv-to-spark-2.PNG)<br/> 
