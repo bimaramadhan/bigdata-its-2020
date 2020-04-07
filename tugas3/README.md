@@ -119,7 +119,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 
 - Terakhir yaitu proses **Deployment** untuk membuat prediksi 20 terbaik film untuk user
 <br>![](gambar/deployment.PNG)<br/> 
-- Pertama menambahkan node **Table to Spark** untuk membuat dataframe spark dari data film yang tidak diberikan rating oleh user
+- Pertama menambahkan node **Table to Spark** untuk membuat dataframe spark dari data film sisa yang tidak diambil dan tidak diberikan rating oleh user pada step **Data Preparation**. Data ini digunakan untuk proses prediksi pada node **Spark Predictor (MLlib)** langkah selanjutnya
 <br>![](gambar/table-to-spark-unrated.PNG)<br/> 
 - Melakukan konfigurasi node **Spark Predictor (MLlib)** untuk melakukan prediksi rating pada unrated movies dan meletakkannya pada kolom prediction
 <br>![](gambar/konfig-spark-predictor.PNG)<br/> 
@@ -129,7 +129,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 - Proses pada node-node di atas adalah untuk mengurutkan rekomendasi film berdasarkan rating yang terbaik dan mengekstraknya sebanyak 20 film terbaik
 - Menambahkan node **Display Recommendations** yang mana terdapat beberapa node di dalamnya
 <br>![](gambar/display-recommendation.PNG)<br/> 
-- Fungsi node tersebut adalah untuk menampilkannya pada portal web hasilnya adalah seperti berikut
+- Fungsi node tersebut adalah untuk menampilkan daftar film yang direkomendasikan pada portal web dan hasilnya adalah seperti berikut
 <br>![](gambar/hasil-web.PNG)<br/> 
 - Menambahkan node **CSV Writer** dan melakukan konfigurasi untuk menyimpannya dalam bentuk file csv
 <br>![](gambar/konfig-csv-write.PNG)<br/> 
