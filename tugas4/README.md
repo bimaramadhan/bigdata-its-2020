@@ -90,7 +90,7 @@ Untuk berjaga-jaga lakukan pengecekan untuk mengetahui Docker Container sudah te
 
 ### 6. Instal Conduktor
 
-Untuk melakukan testing Kafka dapat dilakukan dengan menggunakan tools Conduktor. Instalasi dan link download dapat dilihat pada web resmi Conduktor. [Conduktor](https://www.conduktor.io/)
+Untuk melakukan testing Kafka dapat dilakukan dengan menggunakan tools Conduktor. Instalasi dan link download dapat dilihat pada web resmi Conduktor. [Instalasi Conduktor](https://www.conduktor.io/)
 
 Berikut adalah tampilan awal aplikasi Conduktor
 
