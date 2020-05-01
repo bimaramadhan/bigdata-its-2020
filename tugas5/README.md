@@ -5,7 +5,9 @@
 - [Langkah-langkah](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas5#langkah-langkah)
 - [Persiapan](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas5#persiapan)
 - [Testing](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas5#testing)
-
+  - [Percobaan dengan 2 worker](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas5#percobaan-dengan-2-worker)
+  - [Percobaan dengan 5 worker](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas5#percobaan-dengan-5-worker)
+- [Kesimpulan](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas5#kesimpulan)
 
 ## Tools
 Terdapat beberapa tools yang akan digunakan yaitu :
