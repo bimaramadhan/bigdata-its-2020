@@ -91,7 +91,7 @@ services:
 6. Sebagai contoh jalankan script berikut ```spark-submit --master spark://172.18.0.4:7077 examples/src/main/python/pi.py 10``` yang mana script ini berisi program untuk menghitung estimasi nilai pi.
    - Partisi 100 <br>
      1. Jalankan perintah berikut untuk partisi sebanyak 100
-     ```spark-submit --master spark://172.18.0.4:7077 examples/src/main/python/pi.py 100```
+     ```spark-submit --master spark://172.21.0.4:7077 examples/src/main/python/pi.py 100```
      
      2. Tunggu proses sampai selesai hingga menampilkan hasil nilai pi seperti berikut 
         ![](gambar/worker2-partisi-100-pi.png)<br/>
@@ -101,7 +101,7 @@ services:
         
    - Partisi 1000 <br>
      1. Jalankan perintah berikut untuk partisi sebanyak 1000
-     ```spark-submit --master spark://172.18.0.4:7077 examples/src/main/python/pi.py 1000```
+     ```spark-submit --master spark://172.21.0.4:7077 examples/src/main/python/pi.py 1000```
      
      2. Tunggu proses sampai selesai hingga menampilkan hasil nilai pi seperti berikut 
         ![](gambar/worker2-partisi-1000-pi.png)<br/>
@@ -203,22 +203,22 @@ services:
 
    - Partisi 100 <br>
      1. Jalankan perintah berikut untuk partisi sebanyak 100
-     ```spark-submit --master spark://172.18.0.4:7077 examples/src/main/python/pi.py 100```
+     ```spark-submit --master spark://172.21.0.7:7077 examples/src/main/python/pi.py 100```
      
      2. Tunggu proses sampai selesai hingga menampilkan hasil nilai pi seperti berikut 
         ![](gambar/worker5-partisi-100-pi.png)<br/>
         
-     3. Observasi jalannya aplikasi dapat dilihat dari Spark Web UI (http://localhost:8080). Dapat dilihat bahwa durasi waktu adalah 20 detik
+     3. Observasi jalannya aplikasi dapat dilihat dari Spark Web UI (http://localhost:8080). Dapat dilihat bahwa durasi waktu adalah 23 detik
         ![](gambar/worker5-partisi-100-waktu.png)<br/>
         
    - Partisi 1000 <br>
      1. Jalankan perintah berikut untuk partisi sebanyak 1000
-     ```spark-submit --master spark://172.18.0.4:7077 examples/src/main/python/pi.py 1000```
+     ```spark-submit --master spark://172.21.0.7:7077 examples/src/main/python/pi.py 1000```
      
      2. Tunggu proses sampai selesai hingga menampilkan hasil nilai pi seperti berikut 
         ![](gambar/worker5-partisi-1000-pi.png)<br/>
         
-     3. Observasi jalannya aplikasi dapat dilihat dari Spark Web UI (http://localhost:8080). Dapat dilihat bahwa durasi waktu adalah 20 detik
+     3. Observasi jalannya aplikasi dapat dilihat dari Spark Web UI (http://localhost:8080). Dapat dilihat bahwa durasi waktu adalah 59 detik
         ![](gambar/worker5-partisi-1000-waktu.png)<br/>
 
 - ## Kesimpulan
