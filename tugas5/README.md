@@ -1,17 +1,11 @@
 # Dokumentasi Create Apache Spark Cluster Menggunakan Docker
 
 ## Daftar Isi
-- [Tools](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas4#tools)
-- [Langkah-langkah](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas4#langkah-langkah)
-  - [1. Instal Docker Engine](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas4#1-instal-docker-engine)
-  - [2. Instal Docker Compose](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas4#2-instal-docker-compose)
-  - [3. Membuat file skrip Docker Compose](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas4#3-membuat-file-skrip-docker-compose)
-  - [4. Melakukan perintah ```docker pull```](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas4#4-melakukan-perintah-docker-pull)
-  - [5. Menjalankan perintah ```docker-compose up -d```](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas4#5-menjalankan-perintah-docker-compose-up--d)
-  - [6. Instal Conduktor](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas4#6-instal-conduktor)
-  - [7. Setting pada Conduktor](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas4#7-setting-pada-conduktor)
-  - [8. Tampilan Overview Conduktor](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas4#8-tampilan-overview-conduktor)
-  
+- [Tools](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas5#tools)
+- [Langkah-langkah](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas5#langkah-langkah)
+- [Persiapan](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas5#persiapan)
+- [Testing](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas5#testing)
+
 
 ## Tools
 Terdapat beberapa tools yang akan digunakan yaitu :
@@ -73,22 +67,22 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
 ```
-### Percobaan 1
+- ### Percobaan 1
 
 ![](gambar/docker-image.png)<br/>
 
-### Percobaan 2
+- ### Percobaan 2
 
 ![](gambar/docker-compose.png)<br/>
 
-### Percobaan 3
+- ### Percobaan 3
 
 ![](gambar/welcome-conduktor.png)<br/>
 
-### Percobaan 4
+- ### Percobaan 4
 
 ![](gambar/conduktor-cluster.png)<br/>
 
-### Percobaan 5
+- ### Percobaan 5
 
 ![](gambar/hasil-akhir-conduktor.png)<br/>
