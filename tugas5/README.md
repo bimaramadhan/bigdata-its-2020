@@ -221,6 +221,12 @@ services:
      3. Observasi jalannya aplikasi dapat dilihat dari Spark Web UI (http://localhost:8080). Dapat dilihat bahwa durasi waktu adalah 59 detik
         ![](gambar/worker5-partisi-1000-waktu.png)<br/>
 
-- ## Kesimpulan
+## Kesimpulan
 
-![](gambar/welcome-conduktor.png)<br/>
+   Pada proses dengan 2 worker, terlihat bahwa dengan menggunakan 100 partisi, proses pencarian nilai pi selesai dalam 20 detik. Namun dengan menggunakan 1000 partisi, proses memakan waktu 1 menit 40 detik. Hal ini dikarenakan terdapat overhead proses map-reduce. Karena hanya terdapat 2 worker, maka waktu lebih banyak terbuang di proses map-reduce (pembagian kerja dan pengumpulan hasil).
+  
+   Sedangkan pada proses 5 worker dengan menggunakan 100 partisi, proses pencarian nilai pi tercapai dalam waktu 23 detik. Namun dengan menggunakan 1000 partisi, proses selesai dalam 59 detik. Dapat dilihat bahwa pada proses 5 worker juga terdapat overhead proses map-reduce
+  
+   Namun jika dibandingkan dengan antara kedua worker terdapat perbedaan. Proses 100 partisi pada 2 worker lebih cepat daripada 5 worker. Hal ini karena dengan worker yang lebih banyak maka akan memakan banyak waktu saat proses pembagian kerja atau map-reduce. Tapi jika dilihat lagi saat diberikan 1000 jobs partisi proses dengan 5 worker jauh lebih cepat dibandingkan dengan proses dengan 2 worker. Hal ini membuktikan bahwa proses akan menjadi lebih efektif dan efisien apabila dengan semakin banyaknya worker maka jobs partisi yang diberikan juga harus besar.
+   
+   Karena apabila dengan worker yang sedikit dan jobs partisi yang diberikan maka tentu akan kewalahan. Begitu juga apabila terdapat banyak worker namun jobs partisi yang diberikan kecil atau sedikit maka akan terdapat overhead proses map-reduce yang mana waktu akan banyak terbuang pada proses master akan membagi pekerjaan ke worker (proses map), dan mengumpulkan kembali hasilnya (reduce). 
