@@ -100,17 +100,18 @@ services:
         ![](gambar/worker2-partisi-100-waktu.png)<br/>
         
    - Partisi 1000 <br>
-     1. Jalankan perintah berikut untuk partisi sebanyak 100
+     1. Jalankan perintah berikut untuk partisi sebanyak 1000
      ```spark-submit --master spark://172.18.0.4:7077 examples/src/main/python/pi.py 1000```
      
      2. Tunggu proses sampai selesai hingga menampilkan hasil nilai pi seperti berikut 
         ![](gambar/worker2-partisi-1000-pi.png)<br/>
         
-     3. Observasi jalannya aplikasi dapat dilihat dari Spark Web UI (http://localhost:8080). Dapat dilihat bahwa durasi waktu adalah 20 detik
+     3. Observasi jalannya aplikasi dapat dilihat dari Spark Web UI (http://localhost:8080). Dapat dilihat bahwa durasi waktu adalah 1 menit 40 detik
         ![](gambar/worker2-partisi-1000-waktu.png)<br/>
 
-- ### Percobaan dengan 5 worker
-  1. Melakukan modifikasi pada file [docker-compose.yml](spark/docker-compose.yml) sehingga nampak seperti di bawah ini
+### Percobaan dengan 5 worker
+
+1. Melakukan modifikasi pada file [docker-compose.yml](spark/docker-compose.yml) sehingga nampak seperti di bawah ini
 ```
 version: '2'
 
@@ -182,16 +183,44 @@ services:
       - SPARK_SSL_ENABLED=no
 ```
 
-![](gambar/docker-compose.png)<br/>
+2. Buka Terminal dan jalankan perintah berikut ```docker-compose up``` pada direktori tempat file docker-compose.yml berada untuk membuat container
 
-- ### Percobaan 3
+![](gambar/worker5-start.png)<br/>
+
+3. Pastikan Spark cluster telah terbuat dengan mengakses web UI di port 8080 (http://localhost:8080)
+
+![](gambar/worker5-spark.png)<br/>
+
+4. Masuk ke dalam container dan mengeksekusi bash dengan menggunakan perintah berikut ```docker exec -it <container_id> /bin/bash``` untuk mengetahui id container dapat dilakukan perintah ```docker ps```
+
+![](gambar/worker5-container.png)<br/>
+
+5. Cek alamat IP dengan menggunakan perintah berikut ```hostname -i```
+
+![](gambar/worker5-hostname.png)<br/>
+
+6. Sebagai contoh jalankan script berikut ```spark-submit --master spark://172.18.0.4:7077 examples/src/main/python/pi.py 10``` yang mana script ini berisi program untuk menghitung estimasi nilai pi.
+
+   - Partisi 100 <br>
+     1. Jalankan perintah berikut untuk partisi sebanyak 100
+     ```spark-submit --master spark://172.18.0.4:7077 examples/src/main/python/pi.py 100```
+     
+     2. Tunggu proses sampai selesai hingga menampilkan hasil nilai pi seperti berikut 
+        ![](gambar/worker5-partisi-100-pi.png)<br/>
+        
+     3. Observasi jalannya aplikasi dapat dilihat dari Spark Web UI (http://localhost:8080). Dapat dilihat bahwa durasi waktu adalah 20 detik
+        ![](gambar/worker5-partisi-100-waktu.png)<br/>
+        
+   - Partisi 1000 <br>
+     1. Jalankan perintah berikut untuk partisi sebanyak 1000
+     ```spark-submit --master spark://172.18.0.4:7077 examples/src/main/python/pi.py 1000```
+     
+     2. Tunggu proses sampai selesai hingga menampilkan hasil nilai pi seperti berikut 
+        ![](gambar/worker5-partisi-1000-pi.png)<br/>
+        
+     3. Observasi jalannya aplikasi dapat dilihat dari Spark Web UI (http://localhost:8080). Dapat dilihat bahwa durasi waktu adalah 20 detik
+        ![](gambar/worker5-partisi-1000-waktu.png)<br/>
+
+- ## Kesimpulan
 
 ![](gambar/welcome-conduktor.png)<br/>
-
-- ### Percobaan 4
-
-![](gambar/conduktor-cluster.png)<br/>
-
-- ### Percobaan 5
-
-![](gambar/hasil-akhir-conduktor.png)<br/>
