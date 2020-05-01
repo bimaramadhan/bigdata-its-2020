@@ -16,92 +16,79 @@
 ## Tools
 Terdapat beberapa tools yang akan digunakan yaitu :
 1. Docker Engine, Docker pada perangkat linux
-2. Kafka, yang dibuat akan berjalan di bawah manajemen Zookeeper
-3. Zookeeper, digunakan sebagai cluster manager
-4. Conduktor, Kafka desktop client (GUI) yang simpel dan powerful dan dapat dijalankan pada Mac OS X, Windows dan Linux
+2. Apache Spark, Framework open source yang terutama digunakan untuk analisis Big Data, machine learning, dan real-time processing.
+
+## Persiapan
+Terdapat beberapa persiapan yang dilakukan diantaranya :
+1. Karena dilakukan pada Docker maka perlu melakukan [Instalasi Docker Engine pada Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+2. Selain itu karena akan digunakan docker image Apache Spark dari Bitnami alangkah baiknya untuk membaca [Dokumentasi Bitnami Spark](https://hub.docker.com/r/bitnami/spark)
 
 ## Langkah-langkah
-### 1. Instal Docker Engine
-Disini sistem operasi yang dipakai adalah Linux Ubuntu. Jadi pertama lakukan instalasi docker pada ubuntu sesuai dengan petunjuk dari dokumentasi yang sudah disediakan pada website resmi docker. [Instalasi Docker Engine pada Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+Jika sudah maka dapat dilakukan implementasi berdasarkan pada langkah-langkah pada link berikut : <br>
+[Tutorial Membuat Apache Spark Cluster Menggunakan Docker](https://docs.google.com/document/d/1LxGtV1WNKPKeUNwzRNJM7BKapAS1V_7ZWgeG9vwyfPY/edit#)
 
-![](gambar/docker-version.png)<br/>
+## Testing
+Akan diakukan percobaan dengan parameter-parameter sebagai berikut:
+- Jumlah worker: 2, 5
+- Jumlah CPU: 2, 4
+- Memory: 1G
+- Partisi: 100, 1000
 
-### 2. Instal Docker Compose
-Terdapat 2 metode dalam membuat infrastruktur kafka, yaitu Docker Command dan Docker Compose. Metode yang akan digunakan adalah dengan Docker Compose sehingga harus dilakukan instalasi untuk Docker Compose. [Instalasi Docker Compose](https://docs.docker.com/compose/install/)
+Untuk menambahkan worker, memodifikasi jumlah CPU dan memory, dapat dilakukan dengan melakukan modifikasi pada [docker-compose.yml](spark/docker-compose.yml) sesuai dengan parameter yang diinginkan
 
-![](gambar/docker-compose-version.png)<br/>
-
-### 3. Membuat file skrip Docker Compose
-Membuat sebuah file skrip dengan format ```docker-compose.yml``` untuk menentukan container apa saja yang akan dibuat. Saat dijalankan nantinya Docker akan secara otomatis membuatkan semua container sesuai dengan dependency yang kita tentukan.
 ```
 version: '2'
 
-networks:
-  kafka-net:
-    driver: bridge
-
 services:
-  zookeeper-server:
-    image: 'bitnami/zookeeper:latest'
-    networks:
-      - kafka-net
-    ports:
-      - '2181:2181'
+  spark:
+    image: bitnami/spark:2
     environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
-  kafka-server1:
-    image: 'bitnami/kafka:latest'
-    networks:
-      - kafka-net    
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
     ports:
-      - '9092:9092'
+      - '8080:8080'
+  spark-worker-1:
+    image: bitnami/spark:2
     environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
-      - ALLOW_PLAINTEXT_LISTENER=yes
-    depends_on:
-      - zookeeper-server
-  kafka-server2:
-    image: 'bitnami/kafka:latest'
-    networks:
-      - kafka-net    
-    ports:
-      - '9093:9092'
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+  spark-worker-2:
+    image: bitnami/spark:2
     environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9093
-      - ALLOW_PLAINTEXT_LISTENER=yes
-    depends_on:
-      - zookeeper-server
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
 ```
-### 4. Melakukan perintah ```docker pull``` 
-Melakukan perintah tersebut pada image yang diperlukan yaitu **bitnami/zookeeper** dan **bitnami/kafka**. Pastikan sudah terdapat 2 Docker Image tersebut pada local environment
+### Percobaan 1
 
 ![](gambar/docker-image.png)<br/>
 
-### 5. Menjalankan perintah ```docker-compose up -d``` 
-Jika 2 Docker Image tersebut sudah terinstal maka dapat dilakukan running dockerfile yang sudah kita buat pada langkah nomor 3
+### Percobaan 2
 
 ![](gambar/docker-compose.png)<br/>
 
-Untuk berjaga-jaga lakukan pengecekan untuk mengetahui Docker Container sudah terbuat sesuai dengan yang diinginkan
-
-![](gambar/docker-container.png)<br/>
-
-### 6. Instal Conduktor
-
-Untuk melakukan testing Kafka dapat dilakukan dengan menggunakan tools Conduktor. Instalasi dan link download dapat dilihat pada web resmi Conduktor. [Instalasi Conduktor](https://www.conduktor.io/)
-
-Berikut adalah tampilan awal aplikasi Conduktor
+### Percobaan 3
 
 ![](gambar/welcome-conduktor.png)<br/>
 
-### 7. Setting pada Conduktor
-Lakukan pengaturan pada bagian Cluster Name, Bootstrap Servers, dan Zookeeper diisi sesuai dengan dependency Docker Container yang sudah diatur pada langkah sebelumnya 
+### Percobaan 4
 
 ![](gambar/conduktor-cluster.png)<br/>
 
-### 8. Tampilan Overview Conduktor
-Jika sudah berhasil maka akan masuk pada menu overview yang seperti berikut  
+### Percobaan 5
 
 ![](gambar/hasil-akhir-conduktor.png)<br/>
