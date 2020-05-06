@@ -1,61 +1,36 @@
-# Dokumentasi Movie Recommendation Engine menggunakan Apache Spark (KNIME)
-## Daftar Isi
-- [Business Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#business-understanding)
-- [Data Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#data-understanding)
-- [Data Preparation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#data-preparation)
-- [Modeling](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#modeling)
-- [Evaluation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#evaluation)
-- [Deployment](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#deployment)
-- [Workflow KNIME](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#workflow-knime)
-- [Perbandingan Waktu yang Diperlukan File Reader dan CSV to Spark untuk Membaca File](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3#perbandingan-waktu-yang-diperlukan-file-reader-dan-csv-to-spark-untuk-membaca-file)
+# Dokumentasi MLlib model to PMML (KNIME)
+
+# Daftar Isi
+- [Business Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas6/Spark%20Compiled%20Model%20Predictor#business-understanding)
+- [Data Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas6/Spark%20Compiled%20Model%20Predictor#data-understanding)
+- [Data Preparation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas6/Spark%20Compiled%20Model%20Predictor#data-preparation)
+- [Modeling](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas6/Spark%20Compiled%20Model%20Predictor#modeling)
+- [Evaluation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas6/Spark%20Compiled%20Model%20Predictor#evaluation)
+- [Deployment](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas6/Spark%20Compiled%20Model%20Predictor#deployment)
+- [Workflow KNIME](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas6/Spark%20Compiled%20Model%20Predictor#workflow-knime)
 
 # Business Understanding
 Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
-- Melihat daftar film terbaik berdasar data rating yang ada
-- Mengelompokkan film berdasarkan genre yang diinginkan
-- Melihat daftar film populer pada tiap genre
-- Membuat sistem rekomendasi film
+- Klasifikasi spesies bunga iris dengan berbagai algoritma
+- Latihan untuk mencoba machine learning
+- Data pembelajaran untuk data mining
 
 # Data Understanding
 
-- Dataset yang digunakan adalah kumpulan data yang menampung rating berbasis 5-bintang dan aktivitas free-text tagging dari [MovieLens](http://movielens.org), sebuah website layanan rekomendasi film. 
+Dataset Iris adalah kumpulan data multivariat yang diperkenalkan oleh ahli statistik dan biolog Inggris Ronald Fisher dalam makalahnya tahun 1936 "The Use of Multiple Measurements in Taxonomic Problems."  Dataset ini adalah salah satu yang paling populer untuk latihan machine learning. Dataset ini isinya tentang 3 macam spesies bunga beserta ukuran petal dan sepal.
 
-- Dataset ini berjumlah 20000263 rating, dan 465564 tag dari keseluruhan 27278 film. Data ini dibuat oleh 138493 user sejak tanggal 9 Januari 1995 sampai 31 Maret 2015. Dataset ini dibuat pada 31 Maret 2015, dan diperbarui pada 17 Oktober 2016 untuk memperbarui links.csv dan menambahkan file genome-*.
+<br>![](gambar/dataset.png)<br/>
 
-- Pengguna dipilih secara acak untuk dimasukkan. Semua pengguna yang terpilih menilai setidaknya 20 film. Tidak ada informasi demografis yang disertakan. Setiap pengguna diwakili oleh id, dan tidak ada informasi lain yang disediakan.
+1. sepal length in cm
+2. sepal width in cm
+3. petal length in cm
+4. petal width in cm
+5. class:
+    - Iris Setosa
+    - Iris Versicolour
+    - Iris Virginica
 
-- Dataset ini berisi 6 file, genome-scores.csv, genome-tags.csv, links.csv, movies.csv, ratings.csv dan tags.csv
-
-- **Ratings Data File Structure (ratings.csv)**
-  - Semua peringkat ada di file ratings.csv. Setiap baris file ini setelah baris tajuk mewakili satu peringkat satu film oleh satu pengguna, dan memiliki format berikut: userId, movieId, rating, timestamp
-  - Baris-baris di dalam file ini diurutkan terlebih dahulu dari userId, lalu, di dalam pengguna, oleh movieId.
-  - Peringkat dibuat pada skala 5 bintang, dengan peningkatan setengah bintang (0,5 bintang - 5,0 bintang).
-  - Timestamp mewakili detik sejak tengah malam Waktu Universal Terkoordinasi (UTC) 1 Januari 1970.
-
-- **Tags Data File Structure (tags.csv)**
-  - Semua tag terdapat dalam file tags.csv. Setiap baris file ini setelah baris tajuk mewakili satu tag yang diterapkan pada satu film oleh satu pengguna, dan memiliki format berikut: userId, movieId, tag, cap waktu
-  - Baris-baris di dalam file ini diurutkan terlebih dahulu dari userId, lalu, di dalam pengguna, oleh movieId.
-  - Tag adalah metadata yang dibuat pengguna tentang film. Setiap tag biasanya satu kata atau frasa pendek. Arti, nilai, dan tujuan dari tag tertentu ditentukan oleh setiap pengguna.
-  - Timestamp mewakili detik sejak tengah malam Waktu Universal Terkoordinasi (UTC) 1 Januari 1970.
-
-- **Movies Data File Structure (movies.csv)**
-  - Informasi film terdapat dalam file movies.csv. Setiap baris file ini setelah baris tajuk mewakili satu film, dan memiliki format berikut: movieId, judul, genre
-  - Judul film dimasukkan secara manual atau diimpor dari https://www.themoviedb.org/, dan termasuk tahun rilis dalam tanda kurung. Kesalahan dan ketidakkonsistenan mungkin ada dalam judul-judul ini.
-
-- **Links Data File Structure (links.csv)**
-  - Pengidentifikasi yang dapat digunakan untuk menautkan ke sumber data film lain terkandung dalam file links.csv. Setiap baris file ini setelah baris tajuk mewakili satu film, dan memiliki format berikut: movieId, imdbId, tmdbId
-  - movieId adalah pengidentifikasi untuk film yang digunakan oleh https://movielens.org. Misal, film Toy Story memiliki tautan https://movielens.org/movies/1.
-  - imdbId adalah pengidentifikasi untuk film yang digunakan oleh http://www.imdb.com. Misal, film Toy Story memiliki tautan http://www.imdb.com/title/tt0114709/.
-  - tmdbId adalah pengidentifikasi untuk film yang digunakan oleh https://www.themoviedb.org. Misal, film Toy Story memiliki tautan https://www.themoviedb.org/movie/862.
-
-- **Tag Genome (genome-scores.csv and genome-tags.csv)**
-  - Tag Genome adalah struktur data yang berisi skor relevansi tag untuk film. Strukturnya adalah matriks padat: setiap film dalam genom memiliki nilai untuk setiap tag dalam genome.
-  - Seperti yang dijelaskan dalam artikel ini, tag genome mengkodekan seberapa kuat film menunjukkan properti tertentu yang diwakili oleh tag (atmosfer, pemicu pemikiran, realistis, dll.). Tag genome dihitung menggunakan algoritma pembelajaran mesin pada konten kontribusi pengguna termasuk tag, peringkat, dan ulasan tekstual.
-  - Genome dibagi menjadi dua file. File genome-score.csv berisi data relevansi tag-film dalam format berikut: movieId, tagId, relevansi
-  - File kedua, genome-tags.csv, memberikan deskripsi tag untuk ID tag dalam file genome, dalam format berikut: tagId, tag
-  - Nilai-nilai tagId dihasilkan ketika set data diekspor, sehingga mereka dapat bervariasi dari versi ke versi set data MovieLens.
-
-- Sumber : [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/)
+- Sumber : [Iris Dataset](https://archive.ics.uci.edu/ml/datasets/Iris)
 
 # Data Preparation
 
@@ -138,19 +113,3 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 
 # Workflow KNIME
 ![](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas3/gambar/workflow.PNG?raw=true)<br/>
-
-# Perbandingan Waktu yang Diperlukan File Reader dan CSV to Spark untuk Membaca File
-
-- Untuk melakukan perbandingan node **File Reader** dan **CSV to Spark**, ditambahkan node **Timer Info** seperti berikut
-<br>![](gambar/timer-info.PNG)<br/> 
-- Dapat dilihat perbandingan waktu eksekusi(dalam milidetik) kedua node tersebut saat membaca file ratings.csv pada gambar di bawah
-<br>![](gambar/kolom-timer-info.PNG)<br/> 
-![](gambar/time-csv-to-spark.PNG)<br/> 
-![](gambar/time-file-reader.PNG)<br/> 
-
-### Kesimpulan
-- Jika dilihat dari perbandingan di atas terlihat perbedaan waktu eksekusi yang cukup signifikan antara kedua node. Node **CSV to Spark** melakukan pembagian data menjadi beberapa bagian untuk kemudian dilakukan pemrosesan secara paralel sehingga cocok dan akan lebih cepat jika memproses suatu data yang sangat besar dibandingkan dengan node **File Reader** yang pemrosesan membaca data tidak paralel sehingga akan lebih lambat. 
-- Tetapi bisa saja jika data yang digunakan tidak terlalu besar maka node **CSV to Spark** akan lebih lambat dibandingkan node **File Reader** karena proses membagi data menjadi beberapa bagian dan dilakukan proses secara paralel tersebut yang justru memakan waktu lama. Berikut perbandingan kedua node saat membaca file yang berukuran kecil.
-<br>![](gambar/kolom-timer-info.PNG)<br/> 
-![](gambar/time-csv-to-spark-2.PNG)<br/> 
-![](gambar/time-file-reader-2.PNG)<br/> 
