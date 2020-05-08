@@ -35,38 +35,12 @@ Dataset Iris adalah kumpulan data multivariat yang diperkenalkan oleh ahli stati
 # Data Preparation
 
 - Pertama membuat spark context menggunakan node **Create Local Big Data Environment**
-<br>![](https://github.com/bimaramadhan/bigdata-its-2020/blob/master/tugas3/gambar/create-local-big-data.PNG?raw=true)<br/>
-
+<br>![](gambar/node-preparation.PNG)<br/>
 - Melakukan konfigurasi pada node tersebut
-<br>![](gambar/konfig-big-data-environment.PNG)<br/>
-
+<br>![](gambar/konfig-big-data.PNG)<br/>
 - Kemudian disini membangun profil user dengan id misal adalah 999999 untuk menilai 20 film acak
 <br>![](gambar/build-current-user-profile.PNG)<br/>
-- Melakukan konfigurasi pada node **File Reader** untuk membaca data movies.csv
-<br>![](gambar/konfig-file-reader.PNG)<br/>
-- Menambahkan node **add fields**. Didalam **add fields** terdapat beberapa proses seperti gambar di bawah ini
-<br>![](gambar/add-fields.PNG)<br/>
-  - node **Shuffle** untuk mengacak urutan baris pada data
-  - melakukan konfigurasi pada node **Constant Value Column** untuk menambahkan kolom timestamp=123 dan userID=999999
-  <br>![](gambar/konfig-timestamp.PNG)<br/>
-  <br>![](gambar/konfig-userid.PNG)<br/>
-- Melakukan konfigurasi pada node **Row Splitter** untuk mengambil 20 film yang akan dinilai oleh user sedangkan film sisanya nanti akan digunakan saat proses **Deployment**
-<br>![](gambar/konfig-row-splitter.PNG)<br/>
-- Menambahkan node **no rating** yang di dalamnya terdapat beberapa node seperti berikut
-<br>![](gambar/no-rating.PNG)<br/>
-- Proses pada node tersebut untuk menyiapkan data saat **Deployment** nanti
-- Kemudian menambahkan node **Ask User for Movie Ratings** yang mana terdapat beberapa node di dalamnya yang intinya adalah untuk memberikan rating pada 20 film yang sudah diambil
-<br>![](gambar/ask-user-rating.PNG)<br/>
-- Berikut hasilnya jika kita klik interactive view
-<br>![](gambar/interactive-view-movie-rating.PNG)<br/>
-- Menambahkan node **Table to Spark** untuk membuat dataframe spark dari data table yang sudah ada rating dari user untuk digunakan saat proses **Training**
-<br>![](gambar/table-to-spark-rated.PNG)<br/>
-- Proses selanjutnya yaitu membaca file ratings.csv dengan node **CSV to Spark** untuk kemudian digunakan saat proses **Training**
-<br>![](gambar/csv-to-spark.PNG)<br/>
-- Melakukan konfigurasi pada node **CSV to Spark** untuk membuat dataframe spark dari file ratings.csv
-<br>![](gambar/konfig-csv-to-spark.PNG)<br/>
-- Melakukan konfigurasi pada node **Spark Partitioning** untuk mempartisi file dan menggunakan 80% untuk **Training** dan 20% untuk **Testing**
-<br>![](gambar/konfig-spark-partitioning.PNG)<br/>
+
 
 # Modeling
 
