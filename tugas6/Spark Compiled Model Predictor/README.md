@@ -79,22 +79,10 @@ Dataset Iris adalah kumpulan data multivariat yang diperkenalkan oleh ahli stati
 
 # Deployment
 
-- Memasukan nilai JSON baru menggunakan node **Container Input (JSON)**
-<br>![](gambar/node-container-input-json-to-table.PNG)<br/> 
-- Melakukan konfigurasi node **Container Input (JSON)** dengan memasukkan input nilai JSON sesuai yang diinginkan
-<br>![](gambar/konfig-container-input-json.PNG)<br/> 
-- Menambahkan node **JSON to Table** untuk mengubah dari bentuk JSON menjadi tabel multi kolom  
-![](gambar/konfig-json-to-table.PNG)<br/> 
-- Menambahkan node **Compiled Model Predictor** 
-<br>![](gambar/node-hasil-json-output.PNG)<br/>
-- Melakukan konfigurasi jika diperlukan
-<br>![](gambar/konfig-compile-model-predictor.PNG)<br/>
-- Menambahkan node **Table to JSON** untuk mengubah kembali dari bentuk tabel multi kolom ke bentuk kolom JSON dan disatukan dalam satu kolom cluster
-<br>![](gambar/konfig-table-to-json.PNG)<br/> 
-- Menambahkan node **Container Output (JSON)** untuk membaca isi kolom JSON kemudian lakukan konfigurasi
-<br>![](gambar/konfig-container-output-json.PNG)<br/> 
-- Berikut hasil dimana terbaca dan terdapat sebuah cluster 
-<br>![](gambar/hasil-container-output-json.PNG)<br/> 
+- Menambahkan node **CSV Writer** untuk deploy output dalam bentuk csv
+<br>![](gambar/node-write.PNG)<br/> 
+- Berikut hasilnya
+<br>![](gambar/hasil-write-csv.PNG)<br/> 
 
 # Workflow KNIME
 ![](gambar/workflow.PNG)<br/>
