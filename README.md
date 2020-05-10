@@ -6,4 +6,4 @@ Tugas 2 : [Eksplorasi KNIME Big Data](https://github.com/bimaramadhan/bigdata-it
 Tugas 3 : [Movie Recommendation Engine menggunakan Apache Spark (KNIME)](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas3) <br>
 Tugas 4 : [Implementasi Infrastruktur Kafka](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas4) <br>
 Tugas 5 : [Create Apache Spark Cluster Menggunakan Docker](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas5) <br>
-Tugas 6 : [MLlib model to PMML](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas6/MLlib%20model%20to%20PMML) dan [Spark Compiled Model Predictor](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas6/MLlib%20model%20to%20PMML) <br>
+Tugas 6 : [MLlib model to PMML](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas6/MLlib%20model%20to%20PMML) dan [Spark Compiled Model Predictor](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas6/Spark%20Compiled%20Model%20Predictor) <br>
