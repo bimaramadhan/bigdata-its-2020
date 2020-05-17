@@ -11,78 +11,379 @@
 
 # Business Understanding
 Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
-- Klasifikasi spesies bunga iris dengan berbagai algoritma
+- Klasifikasi energi meter
+- Analisa kebutuhan listrik di Irlandia
 - Latihan untuk mencoba machine learning
 - Data pembelajaran untuk data mining
 
 # Data Understanding
 
-Dataset Iris adalah kumpulan data multivariat yang diperkenalkan oleh ahli statistik dan biolog Inggris Ronald Fisher dalam makalahnya tahun 1936 "The Use of Multiple Measurements in Taxonomic Problems."  Dataset ini adalah salah satu yang paling populer untuk latihan machine learning. Dataset ini isinya tentang 3 macam spesies bunga beserta ukuran petal dan sepal.
+- Dataset Irish Energy Meter adalah kumpulan data meter energi listrik dari 5000 lebih rumah masyarakat di Irlandia.
 
-<br>![](gambar/dataset.png)<br/>
-
-1. sepal length in cm
-2. sepal width in cm
-3. petal length in cm
-4. petal width in cm
-5. class:
-    - Iris Setosa
-    - Iris Versicolour
-    - Iris Virginica
-
-- Sumber : [Iris Dataset](https://archive.ics.uci.edu/ml/datasets/Iris)
+- Dataset ini terdiri dari kolom yaitu :
+    - meterID in integer, id unik meter pada tiap rumah
+    - enc_datetime in integer, tiga digit pertama kolom menghitung jumlah hari mulai dari 1 Januari 1 2009. 2 digit terakhir menghitung angka cap waktu yang diperbarui setiap tiga puluh menit: yaitu 01 = 00:30 dan 11 = 05:30.
+    - reading in float, nilai data meter energi
 
 # Data Preparation
 
-- Pertama membuat spark context menggunakan node **Create Local Big Data Environment**
-<br>![](gambar/node-preparation.PNG)<br/>
-- Melakukan konfigurasi pada node tersebut
-<br>![](gambar/konfig-big-data.PNG)<br/>
-- Kemudian membaca file dataset iris dengan node **File Reader** lalu melakukan konfigurasi 
-<br>![](gambar/konfig-reader-train.PNG)<br/>
-- Menambahkan node **Table to Spark** untuk membuat sebuah spark dataframe dari tabel dataset iris yang sudah dibaca
+- Berikut workflow pada data preparation
+<br>![](gambar/preparation.PNG)<br/>
+- Membaca data dengan menggunakan node file reader
+<br>![](gambar/node-file-reader.PNG) ![](gambar/konfig-reader.PNG) <br/>
+- Karena proses menggunakan spark maka perlu menambahkan node create local big data environment untuk membuat local spark context
+<br>![](gambar/node-big-data-env.PNG) ![](gambar/konfig-big-data-env.PNG) <br/>
+- Membuat metanode load data untuk load ke data ke dalam hive
+<br>![](gambar/node-load-data.PNG) ![](gambar/isi-load-data.PNG) <br/>
+    - Membuat tabel database dari file reader yang sudah di load sebelumnya
+    <br>![](gambar/node-table-creator.PNG) ![](gambar/konfig-db-table-creator.PNG) <br/>
+    - Load tabel database yang sudah dibuat ke dalam hive
+    <br>![](gambar/node-db-loader.PNG) ![](gambar/konfig-db-loader.PNG) <br/>
 
 # Modeling
 
-- Melatih model pada spark dengan menggunakan node **Spark k-Means** 
-<br>![](gambar/node-modeling.PNG)<br/>
-- Melakukan konfigurasi pada node tersebut dan masukkan semua parameter
-<br>![](gambar/konfig-spark-kmeans.PNG)<br/>
-- Menambahkan node **Spark MLlib to PMML** untuk mengubah model dari spark menjadi pmml
-- Menambahkan node **PMML Compiler** untuk menerjemahkan model pmml ke java bytecode agar bisa dijalankan oleh node **Compiled Model Predictor** nantinya
-<br>![](gambar/konfig-pmml-compiler.PNG)<br/>
+- Berikut workflow pada modeling
+<br>![](gambar/modeling.PNG) <br/>
+- Mengimpor hasil dari query Hive yang masuk ke Spark sebagai DataFrame/RDD.
+<br>![](gambar/node-hive-to-spark.PNG) <br/>
+- Metanode extract date-time attributes, metanode ini dilakukan untuk mendapatkan atribut waktu yang spesifik
+<br>![](gambar/node-extract-time.PNG) ![](gambar/isi-extract-time.PNG) <br/>
+    - Menginisiasi konversi data waktu
+    <br>![](gambar/node-spark-sql-query-1.PNG) ![](gambar/konfig-spark-sql-query-1.PNG) ![](gambar/hasil-spark-sql-query-1.PNG) <br/>
+    - Mengekstrak fitur data waktu baru
+    <br>![](gambar/node-spark-sql-query-2.PNG) ![](gambar/konfig-spark-sql-query-2.PNG) ![](gambar/hasil-spark-sql-query-2.PNG) <br/>
+    - Menetapkan atribut waktu weekday dan weekend
+    <br>![](gambar/node-spark-sql-query-3.PNG) ![](gambar/konfig-spark-sql-query-3.PNG) ![](gambar/hasil-spark-sql-query-3.PNG) <br/>
+    - Menetapkan jam dan segmen per hari
+    <br>![](gambar/node-spark-sql-query-4.PNG) ![](gambar/konfig-spark-sql-query-4.PNG) ![](gambar/hasil-spark-sql-query-4.PNG) <br/>
+- Metanode aggregation and time series, metanode ini bertujuan untuk agregasi data penggunaan listrik berdasarkan waktu
+<br>![](gambar/node-agregation-time-series.PNG) ![](gambar/isi-agregation-time-series.PNG)
+    #### a. Total Usage
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/total%20usage.JPG?raw=true)
+
+    - Yang pertama, adalah mencari nilai Penggunaan Listrik Total menggunakan node **Spark GroupBy**. Caranya adalah dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**-nya. 
+    <br> ![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28total%20usage%29.JPG?raw=true)
+    <br> ![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28total%20usage%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28total%20usage%29.JPG?raw=true)
+
+    - Agar memudahkan ketika dibaca, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Column%20Rename%20%28total%20usage%20as%20totalKW%29.JPG?raw=true)
+
+    - Nama kolom yang semula **kw30(sum)** diubah menjadi **totalKW**. Proses untuk mencari Total Usage telah selesai. Selanjutnya adalah mencari Rata-rata Usage by Year.
+
+    #### b. Usage By Year
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20year.JPG?raw=true)
+
+    - Proses ini adalah untuk mencari nilai Rata-rata Penggunaan Listrik per Tahun menggunakan node **Spark GroupBy**. Caranya adalah dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, dan **year**-nya. 
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20year%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20year%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28usage%20by%20year%29.JPG?raw=true)
+
+    - Setelah itu, hasilnya akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya. Caranya adalah dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28average%20by%20year%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28average%20by%20year%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28average%20by%20year%29.JPG?raw=true)
+
+    - Agar memudahkan ketika dibaca, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Column%20Rename%20%28average%20by%20year%20as%20avgYearlyKW%29.JPG?raw=true)
+
+    - Nama kolom yang semula **mean(sum(kw30))** diubah menjadi **avgYearlyKW**.
+
+    - Proses untuk mencari nilai Rata-rata dari Penggunaan Listrik per Tahun telah selesai. 
+
+    - Selanjutnya adalah melakukan Join untuk nilai Penggunaan Listrik Total dan Rata-rata Penggunaan Listrik per Tahun menggunakan node **Spark Joiner**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%29.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%29.JPG?raw=true)
+
+    - Proses selanjutnya adalah mencari Rata-rata Penggunaan Listrik per Bulan.
+
+    c. Usage by Month
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20month.JPG?raw=true)
+
+    - Proses ini adalah untuk mencari nilai Rata-rata Penggunaan Listrik per Bulan menggunakan node **Spark GroupBy**. Caranya adalah dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **year**, dan **month**-nya. 
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20month%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20month%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28usage%20by%20month%29.JPG?raw=true)
+
+    - Setelah itu, hasilnya akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya. Caranya adalah dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28average%20by%20month%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28average%20by%20month%29%202.JPG?raw=true)
+
+    - Berikut hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28average%20by%20month%29.JPG?raw=true)
+
+    - Agar memudahkan ketika dibaca, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Column%20Rename%20%28average%20by%20month%20as%20avgMonthlyKW%29.JPG?raw=true)
+
+    - Nama kolom yang semula **mean(sum(kw30))** diubah menjadi **avgMonthlyKW**.
+
+    - Proses untuk mencari nilai Rata-rata dari Penggunaan Listrik per Bulan telah selesai. 
+
+    - Selanjutnya adalah melakukan Join untuk Rata-rata Penggunaan Listrik per Bulan dengan hasil join sebelumnya menggunakan node **Spark Joiner**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%29.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%29.JPG?raw=true)
+
+    - Proses selanjutnya adalah mencari biaya Penggunaan Listrik per Minggu.
+
+    d. Usage by Week
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20week.JPG?raw=true)
+
+    - Proses ini adalah untuk mencari nilai Rata-rata Penggunaan Listrik per Minggu menggunakan node **Spark GroupBy**. Caranya adalah dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **year**, dan **week**-nya. 
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20week%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20week%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28usage%20by%20week%29.JPG?raw=true)
+
+    - Setelah itu, hasilnya akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya. Caranya adalah dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28average%20by%20week%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28average%20by%20week%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28average%20by%20week%29.JPG?raw=true)
+
+    - Agar memudahkan ketika dibaca, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Column%20Rename%20%28average%20by%20week%20as%20avgWeeklyKW%29.JPG?raw=true)
+
+    - Nama kolom yang semula **mean(sum(kw30))** diubah menjadi **avgWeeklyKW**.
+
+    - Proses untuk mencari nilai Rata-rata dari Penggunaan Listrik per Minggu telah selesai. 
+
+    - Selanjutnya adalah melakukan Join untuk Rata-rata Penggunaan Listrik per Minggu dengan hasil join sebelumnya menggunakan node **Spark Joiner**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%29.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%29.JPG?raw=true)
+
+    - Proses selanjutnya adalah mencari biaya Penggunaan Listrik berdasarkan hari dalam Seminggu.
+
+    e. Usage by Day of Week
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20day%20of%20week.JPG?raw=true)
+
+    - Proses ini adalah untuk mencari nilai Rata-rata Penggunaan Listrik berdasarkan hari dalam Seminggu menggunakan node **Spark GroupBy**. Caranya adalah dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **year**, **week**, dan **dayOfWeek**-nya. 
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20day%20of%20week%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20day%20of%20week%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28usage%20by%20day%20of%20week%29.JPG?raw=true)
+
+    - Setelah itu, hasilnya akan di proses ke node **Spark Pivot** untuk mencari nilai rata-rata pada setiap pivot-nya (**dayOfWeek**). Caranya adalah dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID dan pilih pivot column **dayOfWeek**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Pivot%20%28pivot%20with%20average%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Pivot%20%28pivot%20with%20average%29%202.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Pivot%20%28pivot%20with%20average%29%203.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Pivot%20%28pivot%20with%20average%29.JPG?raw=true)
+
+    - Agar memudahkan ketika dibaca, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Column%20Rename%20%28Day%20+%20mean%28%29%20to%20avgDay%29.JPG?raw=true)
+
+    - Nama kolom yang semula **[Hari] + mean(sum(kw30))** diubah menjadi **avg[Hari]**.
+
+    - Proses untuk mencari nilai Rata-rata dari Penggunaan Listrik berdasarkan hari dalam Seminggu telah selesai. 
+
+    - Selanjutnya adalah melakukan Join untuk Rata-rata Penggunaan Listrik berdasarkan hari dalam Seminggu dengan hasil join sebelumnya menggunakan node **Spark Joiner**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%29.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%29.JPG?raw=true)
+
+    - Proses selanjutnya adalah mencari biaya Penggunaan Listrik per Hari.
+
+    f. Usage by Day
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20day.JPG?raw=true)
+
+    - Proses ini adalah untuk mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy**. Caranya adalah dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, dan **eventDate**-nya. 
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20day%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20day%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28usage%20by%20day%29.JPG?raw=true)
+
+    - Setelah itu, hasilnya akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya. Caranya adalah dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28average%20by%20day%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28average%20by%20day%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28average%20by%20day%29.JPG?raw=true)
+
+    - Agar memudahkan ketika dibaca, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Column%20Rename%20%28average%20by%20day%20as%20avgDaily%29.JPG?raw=true)
+
+    - Nama kolom yang semula **mean(sum(kw30))** diubah menjadi **avgDaily**.
+
+    - Proses untuk mencari nilai Rata-rata dari Penggunaan Listrik per Hari telah selesai. 
+
+    - Selanjutnya adalah melakukan Join untuk Rata-rata Penggunaan Listrik per Hari dengan hasil join sebelumnya menggunakan node **Spark Joiner**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%20+%20avgDaily%29.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%20+%20avgDaily%29.JPG?raw=true)
+
+    - Proses selanjutnya adalah mencari Penggunaan Listrik per Hari pada periode jam tertentu.
+
+    g. Usage by Day Segment
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20day%20segment.JPG?raw=true)
+
+    - Proses ini adalah untuk mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy**. Caranya adalah dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **eventDate**, dan **daySegment**-nya. 
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20day%20segment%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20day%20segment%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28usage%20by%20day%20segment%29.JPG?raw=true)
+
+    - Setelah itu, hasilnya akan di proses ke node **Spark Pivot** untuk mencari nilai rata-rata pada setiap pivot-nya (**daySegment**). Caranya adalah dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID dan pilih pivot column **daySegment**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Pivot%20%28pivot%20with%20day%20segment%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Pivot%20%28pivot%20with%20day%20segment%29%202.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Pivot%20%28pivot%20with%20day%20segment%29%203.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Pivot%20%28pivot%20with%20day%20segment%29.JPG?raw=true)
+
+    - Agar memudahkan ketika dibaca, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Column%20Rename%20%28average%20by%20day%20segment%29.JPG?raw=true)
+
+    - Nama kolom yang semula **[daySegment] + mean(sum(kw30))** diubah menjadi **avg[daySegment]**.
+
+    - Proses untuk mencari nilai Rata-rata dari Penggunaan Listrik per Hari pada periode jam tertentu telah selesai. 
+
+    - Selanjutnya adalah melakukan Join untuk Rata-rata Penggunaan Listrik per Hari pada periode jam tertentu dengan hasil join sebelumnya menggunakan node **Spark Joiner**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%20+%20avgDaily%20+%20avgDaySegment%29.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%20+%20avgDaily%20+%20avgDaySegment%29.JPG?raw=true)
+
+    - Proses selanjutnya adalah mencari Penggunaan Listrik pada saat Weekend dan Weekday.
+
+    h. Usage by Day Classifier
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20day%20classifier.JPG?raw=true)
+
+    - Proses ini adalah untuk mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy**. Caranya adalah dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **year**, **month**, **week**, dan **dayClassifier**-nya. 
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20day%20classifier%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20day%20classifier%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28usage%20by%20day%20classifier%29.JPG?raw=true)
+
+    - Setelah itu, hasilnya akan di proses ke node **Spark Pivot** untuk mencari nilai rata-rata pada setiap pivot-nya (**dayClassifier**). Caranya adalah dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID dan pilih pivot column **dayClassifier**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Pivot%20%28pivot%20with%20day%20classifier%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Pivot%20%28pivot%20with%20day%20classifier%29%202.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Pivot%20%28pivot%20with%20day%20classifier%29%203.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Pivot%20%28pivot%20with%20day%20classifier%29.JPG?raw=true)
+
+    - Agar memudahkan ketika dibaca, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Column%20Rename%20%28average%20by%20day%20classifier%29.JPG?raw=true)
+
+    - Nama kolom yang semula **[dayClassifier] + mean(sum(kw30))** diubah menjadi **avg[dayClassifier]**.
+
+    - Proses untuk mencari nilai Rata-rata dari Penggunaan Listrik pada saat Weekend dan Weekday telah selesai. 
+
+    - Selanjutnya adalah melakukan Join untuk Rata-rata Penggunaan Listrik pada saat Weekend dan Weekday dengan hasil join sebelumnya menggunakan node **Spark Joiner**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%20+%20avgDaily%20+%20avgDaySegment%20+%20avgClassifier%29.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%20+%20avgDaily%20+%20avgDaySegment%20+%20avgClassifier%29.JPG?raw=true)
+
+    - Proses selanjutnya adalah mencari Penggunaan Listrik pada jam tertentu.
+
+    i. Usage by Hour
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20hour.JPG?raw=true)
+
+    - Proses ini adalah untuk mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy**. Caranya adalah dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **eventDate**, dan **hour**-nya. 
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20hour%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28usage%20by%20hour%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28usage%20by%20hour%29.JPG?raw=true)
+
+    - Setelah itu, hasilnya akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya. Caranya adalah dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28average%20by%20hour%29.JPG?raw=true)
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20GroupBy%20%28average%20by%20hour%29%202.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20GroupBy%20%28average%20by%20hour%29.JPG?raw=true)
+
+    - Agar memudahkan ketika dibaca, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Column%20Rename%20%28avgHourly%29.JPG?raw=true)
+
+    - Nama kolom yang semula **mean(sum(kw30))** diubah menjadi **avgHourly**.
+
+    - Proses untuk mencari nilai Rata-rata dari Penggunaan Listrik pada jam tertentu. telah selesai. 
+
+    - Selanjutnya adalah melakukan Join untuk Rata-rata Penggunaan Listrik pada jam tertentu. dengan hasil join sebelumnya menggunakan node **Spark Joiner**.
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%20+%20avgDaily%20+%20avgDaySegment%20+%20avgClassifier%20+%20avgHourly%29.JPG?raw=true)
+
+    - Berikut adalah hasilnya:
+    <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%20+%20avgDaily%20+%20avgDaySegment%20+%20avgClassifier%20+%20avgHourly%29.JPG?raw=true)
+
+    - Proses selanjutnya adalah menghitung presentase dari penggunakan listrik per hari dan pada periode jam tertentu.
 
 # Evaluation
 
-- Kemudian pertama membaca file dataset iris yang sudah disiapkan untuk testing
-<br>![](gambar/node-evaluation.PNG)<br/>
-- Melakukan konfigurasi pada node tersebut
-<br>![](gambar/konfig-reader-test.PNG)<br/>
-- Menambahkan node **Compiled Model Predictor** dan melakukan konfigurasi jika diperlukan
-<br>![](gambar/konfig-compile-model-predictor.PNG)<br/>
-- Melakukan perhitungan scoring dengan node **Entropy Scorer** 
-<br>![](gambar/konfig-entropy-scorer.PNG)<br/>
-- Berikut hasil perhitungan scoring yang dilakukan
-<br>![](gambar/hasil-entropy-scorer.PNG)<br/> 
+- Berikut workflow pada evaluation
+<br>![](gambar/evaluation.PNG) <br/>
+- Menghitung presentase dari penggunaan listrik berdasarkan agregasi data dan segmentasi yang telah dilakukan sebelumnya
+<br>![](gambar/node-spark-sql-query.PNG) ![](gambar/konfig-spark-sql-query.PNG) <br/>
+- Metanode PCA, kmeans, dan scatterplot bertujuan untuk mengelompokkan dan memvisualisasikan hasil perhitungan presentase agregasi data
+<br>![](gambar/node-pca.PNG) ![](gambar/isi-pca.PNG) <br/>
+    - Menormalisasikan data agregasi
+    <br>![](gambar/node-spark-normalizer.PNG) ![](gambar/konfig-spark-normalizer.PNG) <br/>
+    - Melakukan principal component analysis dari 96% data untuk memilih 96% data yang tidak direduksi
+    <br>![](gambar/node-spark-pca.PNG) ![](gambar/konfig-spark-pca.PNG) <br/>
+    - Clustering dengan algoritma kmeans
+    <br>![](gambar/node-spark-kmeans.PNG) ![](gambar/konfig-spark-kmeans.PNG) <br/>
+    Berikut hasil clustering
+    <br>![](gambar/hasil-spark-kmeans.PNG) <br/>
+    - Memfilter dan tetap menyimpan meterid dan label cluster
+    <br>![](gambar/node-spark-column-filter.PNG) ![](gambar/konfig-spark-column-filter.PNG) <br/>
+    - Menggabungkan hasil principal component analysis dengan label cluster 
+    <br>![](gambar/node-spark-joiner.PNG) ![](gambar/konfig-spark-joiner.PNG) <br/>
+    - Mengubah format menjadi tabel untuk visualisasi
+    <br>![](gambar/node-spark-to-table.PNG) ![](gambar/konfig-spark-to-table.PNG) <br/>
+    - Mendenormalisasikan data dengan model pmml
+    <br>![](gambar/node-denormalizer.PNG) <br/>
+    - Mengubah format nomor cluster ke string agar lebih jelas untuk warna visualisasi
+    <br>![](gambar/node-number-t-string.PNG) ![](gambar/konfig-number-t-string.PNG) <br/>
+    - Menetapkan warna untuk cluster
+    <br>![](gambar/node-color-manager.PNG) ![](gambar/konfig-color-manager.PNG) <br/>
+    - Menampilkan hasil cluster dengan metode scatter plot
+    <br>![](gambar/node-scatter-plot.PNG) ![](gambar/konfig-scatter-plot.PNG) <br/>
+    - Berikut hasilnya
+    <br>![](gambar/hasil-scatter-plot.PNG)<br/>
+    - Menampilkan hasil cluster dengan tabel view
+    <br>![](gambar/node-table-view.PNG) ![](gambar/konfig-table-view.PNG) <br/>
+    - Berikut Hasilnya
+    <br>![](gambar/hasil-table-view.PNG) <br/>
+    - Membuat spark dataframe/rdd dari tabel data untuk dilanjutkan pada deployment
+    <br>![](gambar/node-table-to-spark.PNG) <br/>
+    - Menghapus spasi dari nama kolom untuk ekspor tabel hive
+    <br>![](gambar/node-spark-column-rename.PNG) ![](gambar/konfig-spark-column-rename.PNG) <br/>
 
 # Deployment
-
-- Memasukan nilai JSON baru menggunakan node **Container Input (JSON)**
-<br>![](gambar/node-container-input-json-to-table.PNG)<br/> 
-- Melakukan konfigurasi node **Container Input (JSON)** dengan memasukkan input nilai JSON sesuai yang diinginkan
-<br>![](gambar/konfig-container-input-json.PNG)<br/> 
-- Menambahkan node **JSON to Table** untuk mengubah dari bentuk JSON menjadi tabel multi kolom  
-![](gambar/konfig-json-to-table.PNG)<br/> 
-- Menambahkan node **Compiled Model Predictor** 
-<br>![](gambar/node-hasil-json-output.PNG)<br/>
-- Melakukan konfigurasi jika diperlukan
-<br>![](gambar/konfig-compile-model-predictor.PNG)<br/>
-- Menambahkan node **Table to JSON** untuk mengubah kembali dari bentuk tabel multi kolom ke bentuk kolom JSON dan disatukan dalam satu kolom cluster
-<br>![](gambar/konfig-table-to-json.PNG)<br/> 
-- Menambahkan node **Container Output (JSON)** untuk membaca isi kolom JSON kemudian lakukan konfigurasi
-<br>![](gambar/konfig-container-output-json.PNG)<br/> 
-- Berikut hasil dimana terbaca dan terdapat sebuah cluster 
-<br>![](gambar/hasil-container-output-json.PNG)<br/> 
+- Berikut workflow pada deployment
+<br>![](gambar/deployment.PNG)<br/>
+- Melakukan deploy hasil agregasi data keseluruhan pada tabel hive
+<br>![](gambar/node-spark-to-hive.PNG) ![](gambar/konfig-spark-to-hive.PNG) <br/>
+- Hasilnya dapat dilihat dengan menggunakan tools dbheaver seperti berikut
+<br>![](gambar/hasil-spark-to-hive.PNG) <br/>
+- Melakukan deploy hasil agregasi data keseluruhan pada hdfs dengan format paquet
+<br>![](gambar/node-spark-to-parquet.PNG) ![](gambar/konfig-spark-to-parquet.PNG) <br/>
+- Berikut hasilnya 
+<br>![](gambar/hasil-spark-to-parquet.PNG) <br/>
 
 # Workflow KNIME
 ![](gambar/workflow.PNG)<br/>
