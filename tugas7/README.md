@@ -185,7 +185,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     - Berikut adalah hasilnya:
     <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%29.JPG?raw=true)
 
-    f. Usage by Day
+    #### f. Usage by Day
     <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20day.JPG?raw=true)
 
     - Mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, dan **eventDate**-nya. 
@@ -211,7 +211,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     - Berikut adalah hasilnya:
     <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%20+%20avgDaily%29.JPG?raw=true)
 
-    g. Usage by Day Segment
+    #### g. Usage by Day Segment
     <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20day%20segment.JPG?raw=true)
 
     - Mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **eventDate**, dan **daySegment**-nya. 
@@ -238,7 +238,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     - Berikut adalah hasilnya:
     <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%20+%20avgDaily%20+%20avgDaySegment%29.JPG?raw=true)
 
-    h. Usage by Day Classifier
+    #### h. Usage by Day Classifier
     <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20day%20classifier.JPG?raw=true)
 
     - Mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **year**, **month**, **week**, dan **dayClassifier**-nya. 
@@ -265,7 +265,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     - Berikut adalah hasilnya:
     <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/hasil%20Spark%20Joiner%20%28total%20usage%20+%20avg%20by%20year%20+%20avg%20by%20month%20+%20avg%20by%20week%20+%20avgDay%20+%20avgDaily%20+%20avgDaySegment%20+%20avgClassifier%29.JPG?raw=true)
 
-    i. Usage by Hour
+    #### i. Usage by Hour
     <br>![enter image description here](https://github.com/Armunz/big-data/blob/master/tugas7/dokum/usage%20by%20hour.JPG?raw=true)
 
     - Mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **eventDate**, dan **hour**-nya. 
