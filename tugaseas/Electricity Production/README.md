@@ -122,7 +122,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **mean(sum(electricity))** diubah menjadi **avgWeekly**.
     
     - Berikut hasilnya
-    <br>![](gambar/hasil-column-rename-wekk.PNG)
+    <br>![](gambar/hasil-column-rename-week.PNG)
 
     - Kemudian melakukan Join untuk Rata-rata Penggunaan Listrik per Minggu dengan hasil join sebelumnya menggunakan node **Spark Joiner**.
 
