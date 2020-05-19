@@ -29,7 +29,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 
 - Dataset Irish Energy Meter adalah kumpulan data meter energi listrik dari 5000 lebih rumah masyarakat di Irlandia.
 
-- Dataset ini terdiri dari kolom yaitu :
+- Dataset ini terdiri dari 3 kolom yaitu :
     - meterID in integer, id unik meter pada tiap rumah
     - enc_datetime in integer, tiga digit pertama kolom menghitung jumlah hari mulai dari 1 Januari 1 2009. 2 digit terakhir menghitung angka cap waktu yang diperbarui setiap tiga puluh menit: yaitu 01 = 00:30 dan 11 = 05:30.
     - reading in float, nilai data meter energi
