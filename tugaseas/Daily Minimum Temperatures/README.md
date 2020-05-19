@@ -15,13 +15,13 @@
 Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 - Klasifikasi temperatur minimum setiap hari
 - Analisa temperatur minimum setiap hari dengan periode waktu tertentu : 
-    - Penggunaan listrik total
-    - Penggunaan listrik tiap tahun
-    - Penggunaan listrik tiap bulan
-    - Penggunaan listrik tiap minggu
-    - Penggunaan listrik berdasarkan hari dalam Seminggu
-    - Penggunaan listrik tiap hari
-    - Penggunaan listrik pada saat weekend dan weekday
+    - Nilai temperatur total
+    - Nilai temperatur tiap tahun
+    - Nilai temperatur tiap bulan
+    - Nilai temperatur tiap minggu
+    - Nilai temperatur berdasarkan hari dalam Seminggu
+    - Nilai temperatur tiap hari
+    - Nilai temperatur pada saat weekend dan weekday
 
 # Data Understanding
 
