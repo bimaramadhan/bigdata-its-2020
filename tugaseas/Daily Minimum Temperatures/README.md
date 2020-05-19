@@ -2,40 +2,43 @@
 
 # Daftar Isi
 
-- [Business Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas7#business-understanding)
-- [Data Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas7#data-understanding)
-- [Data Preparation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas7#data-preparation)
-- [Modeling](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas7#modeling)
-- [Evaluation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas7#evaluation)
-- [Deployment](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas7#deployment)
-- [Workflow KNIME](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugas7#workflow-knime)
+- [Business Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Daily%20Minimum%20Temperatures#business-understanding)
+- [Data Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Daily%20Minimum%20Temperatures#data-understanding)
+- [Data Preparation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Daily%20Minimum%20Temperatures#data-preparation)
+- [Modeling](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Daily%20Minimum%20Temperatures#modeling)
+- [Evaluation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Daily%20Minimum%20Temperatures#evaluation)
+- [Deployment](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Daily%20Minimum%20Temperatures#deployment)
+- [Workflow KNIME](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Daily%20Minimum%20Temperatures#workflow-knime)
 
 # Business Understanding
 
 Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
-- Klasifikasi energi meter penggunaan energi listrik
-- Analisa kebutuhan listrik di Irlandia dengan periode waktu tertentu : 
+- Klasifikasi temperatur minimum setiap hari
+- Analisa temperatur minimum setiap hari dengan periode waktu tertentu : 
     - Penggunaan listrik total.
     - Penggunaan listrik tiap tahun.
     - Penggunaan listrik tiap bulan.
     - Penggunaan listrik tiap minggu.
     - Penggunaan listrik berdasarkan hari dalam Seminggu.
     - Penggunaan listrik tiap hari.
-    - Penggunaan listrik tiap hari pada periode jam tertentu.
     - Penggunaan listrik pada saat weekend dan weekday.
-    - Penggunaan listrik pada jam tertentu.   
 
 # Data Understanding
 
-- Dataset Irish Energy Meter adalah kumpulan data meter energi listrik dari 5000 lebih rumah masyarakat di Irlandia.
+- Dataset Daily Minimum Temperatures adalah kumpulan data nilai temperatur minimumum setiap harinya dari tahun 1981 hingga 1990.
 
-- Dataset ini terdiri dari kolom yaitu :
-    - meterID in integer, id unik meter pada tiap rumah
-    - enc_datetime in integer, tiga digit pertama kolom menghitung jumlah hari mulai dari 1 Januari 1 2009. 2 digit terakhir menghitung angka cap waktu yang diperbarui setiap tiga puluh menit: yaitu 01 = 00:30 dan 11 = 05:30.
-    - reading in float, nilai data meter energi
+- Dataset ini terdiri dari 2 kolom yaitu :
+    - Date in string, data tanggal
+    - Daily minimum temperatures in string, nilai data temperatur
 
 # Data Preparation
 
+- Pertama yang dilakukan adalah memformat data tanggal pada dataset ini agar nantinya dapat dilakukan proses query di dalam program. Tools yang digunakan adalah Microsoft Excel
+<br>![](gambar/convert1.PNG)<br/>
+<br>![](gambar/convert1.PNG)<br/>
+<br>![](gambar/convert1.PNG)<br/>
+- Karena dataset ini juga ini belum memiliki ID, maka perlu ditambahkan juga ID dengan asumsi nilai ID adalah dari 1 sampai 100
+<br>![](gambar/dataset.PNG)<br/>
 - Berikut workflow pada data preparation
 <br>![](gambar/preparation.PNG)<br/>
 - Membaca data dengan menggunakan node file reader
@@ -63,16 +66,14 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     <br>![](gambar/node-spark-sql-query-2.PNG) ![](gambar/konfig-spark-sql-query-2.PNG) ![](gambar/hasil-spark-sql-query-2.PNG) <br/>
     - Menetapkan atribut waktu weekday dan weekend
     <br>![](gambar/node-spark-sql-query-3.PNG) ![](gambar/konfig-spark-sql-query-3.PNG) ![](gambar/hasil-spark-sql-query-3.PNG) <br/>
-    - Menetapkan jam dan segmen per hari
-    <br>![](gambar/node-spark-sql-query-4.PNG) ![](gambar/konfig-spark-sql-query-4.PNG) ![](gambar/hasil-spark-sql-query-4.PNG) <br/>
 - Metanode aggregation and time series, metanode ini bertujuan untuk agregasi data penggunaan listrik berdasarkan waktu
 <br>![](gambar/node-agregation-time-series.PNG) ![](gambar/isi-agregation-time-series.PNG)
     #### a. Total Usage
     <br>![](gambar/total.PNG)
 
-    - Mencari nilai Penggunaan Listrik Total menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**-nya. 
+    - Mencari nilai Penggunaan Listrik Total menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **temperature**, lalu di Group By berdasarkan **Id**-nya. 
 
-    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **kw30(sum)** diubah menjadi **totalKW**. 
+    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **temperature(sum)** diubah menjadi **total**. 
     
     - Berikut hasilnya
     <br>![](gambar/hasil-column-rename-total.PNG)
@@ -80,11 +81,11 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     #### b. Usage By Year
     <br>![](gambar/year.PNG)
 
-    - Mencari nilai Rata-rata Penggunaan Listrik tiap Tahun menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, dan **year**-nya. 
+    - Mencari nilai Rata-rata Penggunaan Listrik tiap Tahun menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **temperature**, lalu di Group By berdasarkan **Id**, dan **year**-nya. 
 
-    - Hasilnya kemudian akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID.)
+    - Hasilnya kemudian akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya dengan melakukan agregasi Average (AVG) pada kolom sum(temperature) lalu di GroupBy berdasarkan Id.)
 
-    - Supaya mudah dibedakan maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **mean(sum(kw30))** diubah menjadi **avgYearlyKW**.
+    - Supaya mudah dibedakan maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **mean(sum(temperature))** diubah menjadi **avgYearly**.
     
     - Berikut hasilnya
     <br>![](gambar/hasil-column-rename-year.PNG)
@@ -97,11 +98,11 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     #### c. Usage by Month
     <br>![](gambar/month.PNG)
 
-    - Mencari nilai Rata-rata Penggunaan Listrik per Bulan menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **year**, dan **month**-nya. 
+    - Mencari nilai Rata-rata Penggunaan Listrik per Bulan menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **temperature**, lalu di Group By berdasarkan **Id**, **year**, dan **month**-nya. 
 
-    - Hasilnya kemudian akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID.
+    - Hasilnya kemudian akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya dengan melakukan agregasi Average (AVG) pada kolom sum(temperature) lalu di GroupBy berdasarkan Id.
 
-    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **mean(sum(kw30))** diubah menjadi **avgMonthlyKW**.
+    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **mean(sum(temperature))** diubah menjadi **avgMonthly**.
     
     - Berikut hasilnya
     <br>![](gambar/hasil-column-rename-month.PNG)
@@ -114,11 +115,11 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     #### d. Usage by Week
     <br>![](gambar/week.PNG)
 
-    - Mencari nilai Rata-rata Penggunaan Listrik per Minggu menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **year**, dan **week**-nya. 
+    - Mencari nilai Rata-rata Penggunaan Listrik per Minggu menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **temperature**, lalu di Group By berdasarkan **Id**, **year**, dan **week**-nya. 
 
-    - Hasilnya kemudian akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID.
+    - Hasilnya kemudian akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya dengan melakukan agregasi Average (AVG) pada kolom sum(temperature) lalu di GroupBy berdasarkan Id.
 
-    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **mean(sum(kw30))** diubah menjadi **avgWeeklyKW**.
+    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **mean(sum(temperature))** diubah menjadi **avgWeekly**.
     
     - Berikut hasilnya
     <br>![](gambar/hasil-column-rename-wekk.PNG)
@@ -131,11 +132,11 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     #### e. Usage by Day of Week
     <br>![](gambar/dayweek.PNG)
 
-    - Mencari nilai Rata-rata Penggunaan Listrik berdasarkan hari dalam Seminggu menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **year**, **week**, dan **dayOfWeek**-nya. 
+    - Mencari nilai Rata-rata Penggunaan Listrik berdasarkan hari dalam Seminggu menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **temperature**, lalu di Group By berdasarkan **Id**, **year**, **week**, dan **dayOfWeek**-nya. 
 
-    - Hasilnya kemudian akan di proses ke node **Spark Pivot** untuk mencari nilai rata-rata pada setiap pivot-nya (**dayOfWeek**) dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID dan pilih pivot column **dayOfWeek**.
+    - Hasilnya kemudian akan di proses ke node **Spark Pivot** untuk mencari nilai rata-rata pada setiap pivot-nya (**dayOfWeek**) dengan melakukan agregasi Average (AVG) pada kolom sum(temperature) lalu di GroupBy berdasarkan Id dan pilih pivot column **dayOfWeek**.
 
-    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **[Hari] + mean(sum(kw30))** diubah menjadi **avg[Hari]**.
+    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **[Hari] + mean(sum(temperature))** diubah menjadi **avg[Hari]**.
     
     - Berikut hasilnya 
     <br>![](gambar/hasil-column-rename-dayweek.PNG)
@@ -148,11 +149,11 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     #### f. Usage by Day
     <br>![](gambar/day.PNG)
 
-    - Mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, dan **eventDate**-nya. 
+    - Mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **temperature**, lalu di Group By berdasarkan **Id**, dan **eventDate**-nya. 
 
-    - Hasilnya kemudian akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID.
+    - Hasilnya kemudian akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya dengan melakukan agregasi Average (AVG) pada kolom sum(temperature) lalu di GroupBy berdasarkan Id.
 
-    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **mean(sum(kw30))** diubah menjadi **avgDaily**.
+    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **mean(sum(temperature))** diubah menjadi **avgDaily**.
     
     - Berikut hasilnya
     <br>![](gambar/hasil-column-rename-day.PNG)
@@ -162,31 +163,14 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     - Berikut hasilnya
     <br>![](gambar/hasil-spark-joiner5.PNG)
 
-    #### g. Usage by Day Segment
-    <br>![](gambar/daysegment.PNG)
-
-    - Mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **eventDate**, dan **daySegment**-nya. 
-    
-    - Hasilnya kemudian akan di proses ke node **Spark Pivot** untuk mencari nilai rata-rata pada setiap pivot-nya (**daySegment**). Caranya adalah dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID dan pilih pivot column **daySegment**.
-
-    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **[daySegment] + mean(sum(kw30))** diubah menjadi **avg[daySegment]**.
-    
-    Berikut hasilnya
-    <br>![](gambar/hasil-column-rename-daysegment.PNG)
-
-    - Kemudian melakukan Join untuk Rata-rata Penggunaan Listrik per Hari pada periode jam tertentu dengan hasil join sebelumnya menggunakan node **Spark Joiner**.
-
-    - Berikut hasilnya
-    <br>![](gambar/hasil-spark-joiner6.PNG)
-
-    #### h. Usage by Day Classifier
+    #### g. Usage by Day Classifier
     <br>![](gambar/dayclassifier.PNG)
 
-    - Mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **year**, **month**, **week**, dan **dayClassifier**-nya. 
+    - Mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **temperature**, lalu di Group By berdasarkan **Id**, **year**, **month**, **week**, dan **dayClassifier**-nya. 
 
-    - Hasilnya kemudian akan di proses ke node **Spark Pivot** untuk mencari nilai rata-rata pada setiap pivot-nya (**dayClassifier**) dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID dan pilih pivot column **dayClassifier**.
+    - Hasilnya kemudian akan di proses ke node **Spark Pivot** untuk mencari nilai rata-rata pada setiap pivot-nya (**dayClassifier**) dengan melakukan agregasi Average (AVG) pada kolom sum(temperature) lalu di GroupBy berdasarkan Id dan pilih pivot column **dayClassifier**.
 
-    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **[dayClassifier] + mean(sum(kw30))** diubah menjadi **avg[dayClassifier]**.
+    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** untuk mengubah nama kolom yang semula **[dayClassifier] + mean(sum(temperature))** diubah menjadi **avg[dayClassifier]**.
     
     - Berikut hasilnya
     <br>![](gambar/hasil-column-rename-dayclassifier.PNG)
@@ -194,24 +178,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     - Kemudian melakukan Join untuk Rata-rata Penggunaan Listrik pada saat Weekend dan Weekday dengan hasil join sebelumnya menggunakan node **Spark Joiner**.
 
     - Berikut hasilnya
-    <br>![](gambar/hasil-spark-joiner7.PNG)
-
-    #### i. Usage by Hour
-    <br>![](gambar/hour.PNG)
-
-    - Mencari nilai Rata-rata Penggunaan Listrik per Hari menggunakan node **Spark GroupBy** dengan melakukan penjumlahan **(SUM)** pada kolom **kw30**, lalu di Group By berdasarkan **meterID**, **eventDate**, dan **hour**-nya. 
-
-    - Hasilnya kemudian akan di proses ke node **Spark GroupBy** untuk mencari nilai rata-ratanya dengan melakukan agregasi Average (AVG) pada kolom sum(kw30) lalu di GroupBy berdasarkan meterID.
-
-    - Supaya mudah dibedakan, maka perlu diubah nama kolomnya menggunakan node **Spark Column Rename** nama kolom yang semula **mean(sum(kw30))** diubah menjadi **avgHourly**.
-    
-    - Berikut hasilnya
-    <br>![](gambar/hasil-column-rename-hour.PNG)
-
-    - Kemudian melakukan Join untuk Rata-rata Penggunaan Listrik pada jam tertentu dengan hasil join sebelumnya menggunakan node **Spark Joiner**.
-
-    - Berikut hasilnya
-    <br>![](gambar/hasil-spark-joiner8.PNG)
+    <br>![](gambar/hasil-spark-joiner6.PNG)
 
 # Evaluation
 
@@ -229,7 +196,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     <br>![](gambar/node-spark-kmeans.PNG) ![](gambar/konfig-spark-kmeans.PNG) <br/>
     Berikut hasil clustering
     <br>![](gambar/hasil-spark-kmeans.PNG) <br/>
-    - Memfilter dan tetap menyimpan meterid dan label cluster
+    - Memfilter dan tetap menyimpan Id dan label cluster
     <br>![](gambar/node-spark-column-filter.PNG) ![](gambar/konfig-spark-column-filter.PNG) <br/>
     - Menggabungkan hasil principal component analysis dengan label cluster 
     <br>![](gambar/node-spark-joiner.PNG) ![](gambar/konfig-spark-joiner.PNG) <br/>
