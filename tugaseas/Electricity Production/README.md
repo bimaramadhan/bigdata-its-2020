@@ -13,7 +13,7 @@
 # Business Understanding
 
 Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
-- Klasifikasi jumlah produksi 
+- Klasifikasi jumlah produksi listrik
 - Analisa produksi listrik dengan periode waktu tertentu : 
     - Produksi listrik total
     - Produksi listrik tiap tahun
@@ -28,8 +28,8 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 - Dataset Electricity Production adalah kumpulan data nilai produksi listrik dari tahun 1981 hingga 1990.
 
 - Dataset ini terdiri dari 2 kolom yaitu :
-    - Date in string, data tanggal
-    - IPG2211A2N in double, nilai data listrik
+    - Date in string, data berisi tanggal bulan dan tahun
+    - IPG2211A2N in double, nilai data listrik yang diproduksi
 
 # Data Preparation
 

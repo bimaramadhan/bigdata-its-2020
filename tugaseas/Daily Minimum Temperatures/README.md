@@ -28,8 +28,8 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 - Dataset Daily Minimum Temperatures adalah kumpulan data nilai temperatur minimumum setiap harinya dari tahun 1981 hingga 1990.
 
 - Dataset ini terdiri dari 2 kolom yaitu :
-    - Date in string, data tanggal
-    - Daily minimum temperatures in string, nilai data temperatur
+    - Date in string, data berisi tanggalbulan dan tahun 
+    - Daily minimum temperatures in string, nilai data temperatur minimum
 
 # Data Preparation
 
