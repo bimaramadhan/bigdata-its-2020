@@ -35,8 +35,8 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
 
 - Pertama yang dilakukan adalah memformat data tanggal pada dataset ini agar nantinya dapat dilakukan proses query di dalam program. Tools yang digunakan adalah Microsoft Excel
 <br>![](gambar/convert1.PNG)<br/>
-<br>![](gambar/convert1.PNG)<br/>
-<br>![](gambar/convert1.PNG)<br/>
+<br>![](gambar/convert2.PNG)<br/>
+<br>![](gambar/convert3.PNG)<br/>
 - Karena dataset ini juga ini belum memiliki ID, maka perlu ditambahkan juga ID dengan asumsi nilai ID adalah dari 1 sampai 100
 <br>![](gambar/dataset.PNG)<br/>
 - Berikut workflow pada data preparation
