@@ -2,13 +2,13 @@
 
 # Daftar Isi
 
-- [Business Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/beer%20Production#business-understanding)
-- [Data Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/beer%20Production#data-understanding)
-- [Data Preparation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/beer%20Production#data-preparation)
-- [Modeling](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/beer%20Production#modeling)
-- [Evaluation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/beer%20Production#evaluation)
-- [Deployment](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/beer%20Production#deployment)
-- [Workflow KNIME](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/beer%20Production#workflow-knime)
+- [Business Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Monthly%20Beer%20Production#business-understanding)
+- [Data Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Monthly%20Beer%20Production#data-understanding)
+- [Data Preparation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Monthly%20Beer%20Production#data-preparation)
+- [Modeling](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Monthly%20Beer%20Production#modeling)
+- [Evaluation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Monthly%20Beer%20Production#evaluation)
+- [Deployment](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Monthly%20Beer%20Production#deployment)
+- [Workflow KNIME](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Monthly%20Beer%20Production#workflow-knime)
 
 # Business Understanding
 

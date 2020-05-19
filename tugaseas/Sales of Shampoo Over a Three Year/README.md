@@ -2,13 +2,13 @@
 
 # Daftar Isi
 
-- [Business Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/shampoo%20Production#business-understanding)
-- [Data Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/shampoo%20Production#data-understanding)
-- [Data Preparation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/shampoo%20Production#data-preparation)
-- [Modeling](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/shampoo%20Production#modeling)
-- [Evaluation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/shampoo%20Production#evaluation)
-- [Deployment](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/shampoo%20Production#deployment)
-- [Workflow KNIME](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/shampoo%20Production#workflow-knime)
+- [Business Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Sales%20of%20Shampoo%20Over%20a%20Three%20Year#business-understanding)
+- [Data Understanding](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Sales%20of%20Shampoo%20Over%20a%20Three%20Year#data-understanding)
+- [Data Preparation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Sales%20of%20Shampoo%20Over%20a%20Three%20Year#data-preparation)
+- [Modeling](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Sales%20of%20Shampoo%20Over%20a%20Three%20Year#modeling)
+- [Evaluation](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Sales%20of%20Shampoo%20Over%20a%20Three%20Year#evaluation)
+- [Deployment](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Sales%20of%20Shampoo%20Over%20a%20Three%20Year#deployment)
+- [Workflow KNIME](https://github.com/bimaramadhan/bigdata-its-2020/tree/master/tugaseas/Sales%20of%20Shampoo%20Over%20a%20Three%20Year#workflow-knime)
 
 # Business Understanding
 
