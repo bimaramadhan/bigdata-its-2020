@@ -219,7 +219,7 @@ Kemungkinan proses yang dapat dilakukan pada dataset ini antara lain :
     - Membuat spark dataframe/rdd dari tabel data untuk dilanjutkan pada deployment
     <br>![](gambar/node-table-to-spark.PNG) <br/>
     - Menghapus spasi dari nama kolom untuk ekspor tabel hive
-    <br>![](gambar/node-spark-column-rename.PNG) ![](gambar/konfig-spark-column-rename.PNG) <br/>
+    <br>![](gambar/node-spark-column-renamee.PNG) ![](gambar/konfig-spark-column-rename.PNG) <br/>
 
 # Deployment
 - Berikut workflow pada deployment
